@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background-color: #FAFAFA;
   margin: 0 auto;
-  padding: 0 0 40px;
+  padding: 0;
 }
 
 /* @media screen and (max-width: 1279px) {
@@ -19,6 +20,11 @@
     margin: 48px 19px 36px;
   }
 } */
+
+/* activate */
+.header_theme_grey {
+  background-color: #DDDEE3;
+}
 
 .header__column {
   display: flex;
@@ -72,4 +78,20 @@
   height: 32px;
   margin: 21px 70px 21px 0;
   padding: 0;
+}
+
+.header__account-button {
+  background-image: url(../../images/account-button.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+  width: 100px;
+  height: 32px;
+  margin: 21px 70px 21px 0;
+  padding: 0;
+}
+
+.header__account-button:hover {
+  opacity: 0.8;
+  transition: opacity 0.5s;
 }

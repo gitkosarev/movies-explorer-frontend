@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './Header.css';
 
-function Header() {
+function Header({ isLoggedIn }) {
   return (
     <header className="header">
       <div className="header__column header__column_nav">
@@ -25,6 +25,9 @@ function Header() {
           <button className="button button_color_blue header__button" type="button">
             Войти
           </button>
+        </Link>
+        <Link to="/account">
+          <div className="header__account-button"></div>
         </Link>
       </div>
     </header>
