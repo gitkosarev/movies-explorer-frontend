@@ -18,7 +18,7 @@ function Header({ isLoggedIn }) {
         </Link>
       </div>
       <div className="header__column header__column_account">
-        <Link className="link header__link" to="/signup">
+        <Link className="link header__signup" to="/signup">
           Регистрация
         </Link>
         <Link to="/signin">
