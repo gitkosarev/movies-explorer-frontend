@@ -7,11 +7,11 @@ import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  /* const [isLoggedIn, setIsLoggedIn] = React.useState(false); */
 
   return (
     <div>
-      <Header isLoggedIn={isLoggedIn} />
+      <Header /* isLoggedIn={isLoggedIn} */ />
       <Routes>
         <Route exact path="/" component={Main} />
       </Routes>
