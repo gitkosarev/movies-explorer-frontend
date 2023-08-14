@@ -98,6 +98,12 @@
   padding: 0;
 }
 
+@media screen and (max-width: 767px) {
+  .header__signup {
+    margin: 29px 14px 29px 0;
+  }
+}
+
 .header__button {
   font-size: 12px;
   font-style: normal;

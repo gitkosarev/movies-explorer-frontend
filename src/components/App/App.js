@@ -11,7 +11,7 @@ function App() {
 
   return (
     <div>
-      <Header isLoggedIn={true} isThemeGrey={false} />
+      <Header isLoggedIn={false} isThemeGrey={false} />
       <Routes>
         <Route exact path="/" component={Main} />
       </Routes>
