@@ -6,14 +6,26 @@
   background-color: #FAFAFA;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  max-width: 1280px;
+  width: 1280px;
   margin: 0 auto;
   padding: 0;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
+
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
+}
+
+@media screen and (max-width: 1279px) {
+  .page {
+    max-width: 768px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .page {
+    max-width: 320px;
+  }
 }

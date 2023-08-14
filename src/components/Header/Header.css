@@ -3,21 +3,20 @@
   flex-direction: row;
   justify-content: space-between;
   background-color: #FAFAFA;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   padding: 0;
 }
 
 /* @media screen and (max-width: 1279px) {
   .header {
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 0 31px;
+   
   }
 }
 
 @media screen and (max-width: 767px) {
   .header {
-    margin: 48px 19px 36px;
+    
   }
 } */
 
@@ -49,6 +48,12 @@
   line-height: 16px;
 }
 
+@media screen and (max-width: 767px) {
+  .header__column_account {
+    font-size: 10px;
+  }
+}
+
 .header__logo {
   background-image: url(../../images/logo.svg);
   background-size: contain;
@@ -60,9 +65,27 @@
   padding: 0;
 }
 
+@media screen and (max-width: 1279px) {
+  .header__logo {
+    margin: 18px 0 18px 30px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header__logo {
+    margin: 18px 0 18px 14px;
+  }
+}
+
 .header__link {
   margin: 28px 16px 0 0;
   padding: 0;
+}
+
+@media screen and (max-width: 1279px) {
+  .header__link {
+    display: none;
+  }
 }
 
 /* activate */
@@ -86,7 +109,22 @@
   padding: 0;
 }
 
-.header__account-button {
+@media screen and (max-width: 1279px) {
+  .header__button {
+    margin: 21px 30px 21px 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header__button {
+    font-size: 10px;
+    width: 54px;
+    height: 26px;
+    margin: 24px 14px 24px 0;
+  }
+}
+
+.header__account {
   background-image: url(../../images/account-button.svg);
   background-size: contain;
   background-repeat: no-repeat;
@@ -97,7 +135,39 @@
   padding: 0;
 }
 
-.header__account-button:hover {
+@media screen and (max-width: 1279px) {
+  .header__account {
+    display: none;
+  }
+}
+
+.header__account:hover {
   opacity: 0.8;
   transition: opacity 0.5s;
+}
+
+.header__menu {
+  background-image: url(../../images/hamburger.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+  display: none;
+}
+
+@media screen and (max-width: 1279px) {
+  .header__menu {
+    display: block;
+    width: 44px;
+    height: 44px;
+    margin: 15px 30px 15px 0;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header__menu {
+    width: 40px;
+    height: 43px;
+    margin: 15px 14px 16px 0;
+  }
 }
