@@ -9,7 +9,11 @@ function Footer() {
         Учебный проект Яндекс.Практикум х BeatFilm.
       </p>
       <div className="footer__columns">
-        <p className="footer__column">&copy; {new Date().getFullYear()}</p>
+        <p className="footer__column">
+          <span className="footer__copy">
+            &copy; {new Date().getFullYear()}
+          </span>
+        </p>
         <nav className="footer__column">
           <ul className="footer__links">
             <li className="footer__link">
