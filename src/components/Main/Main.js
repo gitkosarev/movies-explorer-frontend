@@ -1,12 +1,13 @@
 import React from "react";
 
 import './Main.css';
+import Promo from '../Promo/Promo';
 
 function Main() {
   return (
-    <div className="main">
-      <p>Main comp</p>
-    </div>
+    <main className="content">
+      <Promo />
+    </main>
   );
 }
 
