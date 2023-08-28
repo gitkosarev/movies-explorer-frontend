@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-      <Header isLoggedIn={false} isThemeGrey={false} />
+      <Header isLoggedIn={false} isThemeGrey={true} />
       <Routes>
         <Route path="/" element={<ProtectedRoute component={Main} isLoggedIn={true} />} />
       </Routes>
