@@ -1,0 +1,36 @@
+.nav-tab {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #F5F5F5;
+  margin: 0;
+  padding: 24px 0;
+}
+
+@media screen and (max-width: 767px) {
+  .nav-tab {
+    padding: 25px 0;
+  }
+}
+
+.nav-tab__link {
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  text-decoration: underline;
+  margin: 0 40px 0 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .nav-tab__link {
+    font-size: 11px;
+    margin: 0 24px 0 0;
+  }
+}
+
+.nav-tab__link:last-child {
+  margin: 0;
+}
