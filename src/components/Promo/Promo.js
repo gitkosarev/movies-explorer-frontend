@@ -6,9 +6,9 @@ function Promo() {
   return (
     <section className="promo" id="promoSection">
       <div className="promo__logo"></div>
-      <p className="promo__text">
+      <h1 className="promo__text">
         Учебный проект студента&#10;факультета Веб-разработки.
-      </p>
+      </h1>
     </section>
   );
 }

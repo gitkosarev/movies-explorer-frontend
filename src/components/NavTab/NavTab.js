@@ -5,13 +5,14 @@ import './NavTab.css';
 function NavTab() {
   return (
     <section className="nav-tab" id="navTabSection">
-      {/* !!!! href */}
-      <a className="link nav-tab__link" href="#promoSection">
+      <a className="link nav-tab__link" href="#aboutProjectSection">
         О проекте
       </a>
+      {/* !!!! href */}
       <a className="link nav-tab__link" href="#promoSection">
         Технологии
       </a>
+      {/* !!!! href */}
       <a className="link nav-tab__link" href="#promoSection">
         Студент
       </a>
