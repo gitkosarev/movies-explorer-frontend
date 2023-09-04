@@ -26,8 +26,23 @@ function AboutProject() {
           </p>
         </div>
       </div>
-      <div className="about-project__">
-        Timeline
+      <div className="about-project__timeline">
+        <div className="about-project__timeline-row">
+          <p className="about-project__timeline-column about-project__timeline-column_color_blue">
+            1 неделя
+          </p>
+          <p className="about-project__timeline-column about-project__timeline-column_color_grey">
+            4 недели
+          </p>
+        </div>
+        <div className="about-project__timeline-row">
+          <p className="about-project__timeline-column">
+            Back-end
+          </p>
+          <p className="about-project__timeline-column">
+            Front-end
+          </p>
+        </div>
       </div>
     </section>
   );
