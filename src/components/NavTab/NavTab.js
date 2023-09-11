@@ -11,8 +11,7 @@ function NavTab() {
       <a className="link nav-tab__link" href="#techsSection">
         Технологии
       </a>
-      {/* !!!! href */}
-      <a className="link nav-tab__link" href="#promoSection">
+      <a className="link nav-tab__link" href="#aboutSection">
         Студент
       </a>
     </section>
