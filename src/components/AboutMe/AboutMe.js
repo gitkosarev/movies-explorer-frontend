@@ -21,7 +21,7 @@ function AboutMe({ avatar, githubLink }) {
             Я родился и живу в Саратове, закончил факультет экономики СГУ. У меня есть жена
             и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить. С 2015 года работал в компании «СКБ Контур». После того, как прошёл курс по веб-разработке, начал заниматься фриланс-заказами и ушёл с постоянной работы.
           </p>
-          <a className="about__link link" href={githubLink} target="_blank" rel="noreferrer">
+          <a className="link about__link" href={githubLink} target="_blank" rel="noreferrer">
             Github
           </a>
         </div>
