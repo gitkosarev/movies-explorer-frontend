@@ -18,8 +18,9 @@ function AboutMe({ avatar, githubLink }) {
             Фронтенд-разработчик, 33 года
           </h4>
           <p className="about__bio">
-            Я родился и живу в Саратове, закончил факультет экономики СГУ. У меня есть жена
-            и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить. С 2015 года работал в компании «СКБ Контур». После того, как прошёл курс по веб-разработке, начал заниматься фриланс-заказами и ушёл с постоянной работы.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac tellus mauris. Nulla a nunc et elit molestie mattis eget ut eros.
+             Aenean varius pretium erat, sit amet tristique dolor aliquet ac. Ut vitae magna non sapien pellentesque ornare.
+              Nunc dictum blandit nunc non interdum. Aenean a aliquam nulla. In.
           </p>
           <a className="link about__link" href={githubLink} target="_blank" rel="noreferrer">
             Github

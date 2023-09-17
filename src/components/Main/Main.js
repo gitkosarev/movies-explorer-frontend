@@ -15,7 +15,7 @@ import Portfolio from '../Portfolio/Portfolio';
 function Main({ isLoggedIn }) {
   const githubLink = "https://github.com/gitkosarev";
   return (
-    <main className="content">
+    <main className="main">
       {/* подставить isLoggedIn пропс вместо false */}
       <Header isLoggedIn={false} isThemeGrey={true} />
       <Promo />
