@@ -32,32 +32,35 @@ function SearchForm({ handleSubmitSearch }) {
         method="post"
         autoComplete="off"
       >
-        <label htmlFor="searchLine" className="search__icon"></label>
-        <input
-          value={value}
-          onChange={handleSearchChange}
-          id="searchLine"
-          className="search__input search__input_el_search-line"
-          type="search"
-          name="search"
-          required
-          placeholder="Фильм"
-          minLength="2"
-          maxLength="100"
-        />
-        <button className="button search__submit" type="submit"></button>
+        <div className="search-line">
+          <label htmlFor="searchLineInput" className="search-line__icon"></label>
+          <input className="search-line__input"
+            value={value}
+            onChange={handleSearchChange}
+            id="searchLineInput"
+            type="search"
+            name="search"
+            required
+            placeholder="Фильм"
+            minLength="2"
+            maxLength="150"
+          />
+          <button className="button search__submit" type="submit"></button>
+        </div>
+        <div className="search-extra">
+          <label htmlFor="isShortFilm" className="search-extra__label">
+            <input className="search-extra__input search-extra__input_el_checkbox"
+              value={isShortFilm}
+              onChange={handleIsShortFilmChange}
+              id="isShortFilm"
+              type="checkbox"
+              name="isShortFilm"
+            />
+            <span className="search-extra__pseudo-checkbox"></span>
+            <span className="search-extra__label-text">Короткометражки</span>
+          </label>
+        </div>
       </form>
-      <label htmlFor="isShortFilm" className="search__label search__label_el_extra-options">
-        <input className="search__input search__input_el_extra-options"
-          value={isShortFilm}
-          onChange={handleIsShortFilmChange}
-          id="isShortFilm"
-          type="checkbox"
-          name="isShortFilm"
-        />
-        <span className="search__pseudo-item search__pseudo-item_type_checkbox"></span>
-        <span className="search__label-text">Короткометражки</span>
-      </label>
     </section>
   )
 }
