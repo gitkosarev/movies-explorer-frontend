@@ -15,17 +15,19 @@ import Portfolio from '../Portfolio/Portfolio';
 function Main({ isLoggedIn }) {
   const githubLink = "https://github.com/gitkosarev";
   return (
-    <main className="main">
-      {/* подставить isLoggedIn пропс вместо false */}
+    <>
       <Header isLoggedIn={false} isThemeGrey={true} />
-      <Promo />
-      <NavTab />
-      <AboutProject />
-      <Techs />
-      <AboutMe avatar={avatarImage} githubLink={githubLink} />
-      <Portfolio />
+      <main className="main">
+        {/* подставить isLoggedIn пропс вместо false */}
+        <Promo />
+        <NavTab />
+        <AboutProject />
+        <Techs />
+        <AboutMe avatar={avatarImage} githubLink={githubLink} />
+        <Portfolio />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
 

@@ -10,18 +10,20 @@ import Preloader from '../Preloader/Preloader';
 
 function Movies({ isLoggedIn, isLoading, handleSubmitSearch, cards, onCardLike, loadMoreMovies }) {
   return (
-    <main className="movies">
+    <>
       <Header isLoggedIn={isLoggedIn} isThemeGrey={false} />
-      <SearchForm handleSubmitSearch={handleSubmitSearch} />
-      <MoviesCardList
-        cards={cards}
-        onCardLike={onCardLike}
-        loadMoreMovies={loadMoreMovies}
-        isSavedCardMode={false}
-      />
-      <Preloader isActive={isLoading} />
+      <main className="movies">
+        <SearchForm handleSubmitSearch={handleSubmitSearch} />
+        <MoviesCardList
+          cards={cards}
+          onCardLike={onCardLike}
+          loadMoreMovies={loadMoreMovies}
+          isSavedCardMode={false}
+        />
+        <Preloader isActive={isLoading} />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
 
