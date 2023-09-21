@@ -4,7 +4,7 @@ import './MoviesCardList.css';
 
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ cards, onCardLike, loadMoreMovies }) {
+function MoviesCardList({ cards, onCardLike, loadMoreMovies, isSavedCardMode }) {
   function handleLoadMoreClick() {
     loadMoreMovies();
   };
@@ -17,6 +17,7 @@ function MoviesCardList({ cards, onCardLike, loadMoreMovies }) {
             key={item.id}
             card={item}
             onCardLike={onCardLike}
+            isSavedCardMode={isSavedCardMode}
           />
         ))}
       </div>

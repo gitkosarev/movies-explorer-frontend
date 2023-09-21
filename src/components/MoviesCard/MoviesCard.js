@@ -4,12 +4,16 @@ import './MoviesCard.css';
 
 import picture from '../../images/cards/mountain.png';
 
-function MoviesCard({ card, onCardLike }) {
+function MoviesCard({ card, onCardLike, isSavedCardMode }) {
   // заменить на логику
-  const isLiked = true;
+  const isLiked = false;
+  let likeButtonClass = `button card__like-button${isLiked ? " card__like-button_active" : ""}`;
+  if (isSavedCardMode) {
+    likeButtonClass = `button card__like-button card__like-button_mode_delete`;
+  }
 
   function handleLikeClick() {
-    onCardLike(card, isLiked);
+    onCardLike(card, !isLiked, isSavedCardMode);
   };
 
   return (
@@ -18,7 +22,7 @@ function MoviesCard({ card, onCardLike }) {
       <img className="card__image" src={picture} alt={`фото ${card.name}`} /* onClick={handleClick} */ />
       <div className="card__about">
         <h2 className="card__title">{card.name}</h2>
-        <button className={`button card__like-button${isLiked ? " card__like-button_active" : ""}`}
+        <button className={likeButtonClass}
           onClick={handleLikeClick}
           type="button">
         </button>

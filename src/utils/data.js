@@ -1,4 +1,4 @@
-const cardArray = [
+export const cardArray = [
   {
     id: 1,
     name: '33 слова о дизайне',
@@ -73,5 +73,26 @@ const cardArray = [
   },
 ];
 
+export const savedCardArray = [
+  {
+    id: 1,
+    name: '33 слова о дизайне',
+    link: '../../images/cards/1.png',
+    time: "1ч42м"
+  },
+  {
+    id: 2,
+    name: '33 слова о дизайне',
+    link: '../../images/cards/2.png',
+    time: "1ч42м"
+  },
+  {
+    id: 3,
+    name: '33 слова о дизайне',
+    link: '../../images/cards/3.png',
+    time: "1ч42м"
+  },
+];
 
-export default cardArray;
+
+/* export default cardArray; */
