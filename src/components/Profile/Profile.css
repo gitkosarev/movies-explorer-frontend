@@ -11,21 +11,36 @@
   padding: 0;
 }
 
+@media screen and (max-width: 767px) {
+  .profile__section {
+    width: 300px;
+  }
+}
+
 .profile__title {
   text-align: center;
   font-size: 24px;
-  font-style: normal;
   font-weight: 500;
-  line-height: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   margin: 74px 0 0;
   padding: 0;
 }
 
-.profile__form {
-  font-size: 11px;
-  font-style: normal;
-  line-height: normal;
+@media screen and (max-width: 1279px) {
+  .profile__title {
+    margin: 236px 0 0;
+  }
+}
 
+@media screen and (max-width: 767px) {
+  .profile__title {
+    margin: 70px 0 0;
+  }
+}
+
+.profile__form {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -35,36 +50,58 @@
   padding: 0;
 }
 
+@media screen and (max-width: 1279px) {
+  .profile__form {
+    margin: 96px 0 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .profile__form {
+    margin: 80px 0 0;
+    padding: 0 20px;
+  }
+}
+
 .profile__form-row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin: 0;
+  padding: 17px 0 0;
 }
 
-/* !!! */
+.profile__form-row:first-child {
+  border-bottom: 1px solid rgba(232, 232, 232, 1);
+  padding: 0 0 16px;
+}
+
 .profile__label {
+  font-size: 11px;
   font-weight: 500;
   margin: 0;
   padding: 0;
 }
 
-/* !!! */
 .profile__input {
   text-align: right;
+  font-size: 11px;
   font-weight: 400;
+  background-color: #FAFAFA;
+  border: none;
   margin: 0;
   padding: 0;
 }
 
-.profile__form-row:first-child {
-  border-bottom: 1px solid rgba(232, 232, 232, 1);
-  padding-bottom: 16px;
+.profile__input:focus {
+  outline: none;
 }
 
 .profile__submit {
   background-color: #FAFAFA;
+  color: #000;
   text-align: center;
   font-size: 13px;
   font-style: normal;
@@ -72,6 +109,19 @@
   line-height: normal;
   margin: 220px 0 0;
   padding: 0;
+}
+
+@media screen and (max-width: 1279px) {
+  .profile__submit {
+    margin: 210px 0 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .profile__submit {
+    font-size: 12px;
+    margin: 379px 0 0;
+  }
 }
 
 .profile__sign-out {
@@ -84,4 +134,10 @@
   line-height: normal;
   margin: 16px 0 0;
   padding: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__sign-out {
+    font-size: 12px;
+  }
 }

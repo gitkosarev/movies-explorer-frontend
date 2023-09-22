@@ -14,14 +14,12 @@ import { cardArray, savedCardArray } from '../../utils/data';
 
 function App() {
   /* const [isLoggedIn, setIsLoggedIn] = React.useState(false); */
-
-  let currentUser = { name: "Vadim", email: "vadim@ya.ru" };
+  const [currentUser, setCurrentUser] = React.useState({ name: "Vadim", email: "vadim@ya.ru" });
 
   function saveProfile(profile) {
     const name = profile?.name;
     const email = profile?.email;
-    /* currentUser = {name, email}; */
-    alert(`name: ${name}, email: ${email}`);
+    setCurrentUser({ name, email });
   };
 
   function singOut() {
