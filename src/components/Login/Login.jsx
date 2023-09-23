@@ -1,24 +1,19 @@
 import React, { useState } from 'react';
 
-import './Register.css';
+import './Login.css';
 
 import AuthForm from '../AuthForm/AuthForm';
 
-function Register() {
-  const [name, setName] = useState("");
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const captions = {
-    title: "Добро пожаловать!",
-    submit: "Зарегистрироваться",
-    extraText: "Уже зарегистрированы?",
-    extraLinkText: "Войти",
-    extraLink: "/signin",
-  };
-
-  function handleNameChange(e) {
-    setName(e.target.value);
+    title: "Рады видеть!",
+    submit: "Войти",
+    extraText: "Ещё не зарегистрированы?",
+    extraLinkText: "Регистрация",
+    extraLink: "/signup",
   };
 
   function handleEmailChange(e) {
@@ -30,23 +25,11 @@ function Register() {
   };
 
   function handleSubmit() {
-    alert("Регистрация прошла успешно!");
+    alert("Вы авторизовались в системе!");
   };
 
   return (
     <AuthForm captions={captions} handleSubmit={handleSubmit}>
-      <label htmlFor="nameInput" className="auth__form-label">Имя</label>
-      <input className="auth__form-input"
-        value={name}
-        onChange={handleNameChange}
-        id="nameInput"
-        type="text"
-        name="name"
-        required
-        placeholder="Введите имя"
-        minLength="2"
-        maxLength="40"
-      />
       <label htmlFor="emailInput" className="auth__form-label">E-mail</label>
       <input className="auth__form-input"
         value={email}
@@ -60,7 +43,7 @@ function Register() {
         maxLength="60"
       />
       <label htmlFor="passwordInput" className="auth__form-label">Пароль</label>
-      <input className="auth__form-input auth__form-input_not-valid"
+      <input className="auth__form-input"
         value={password}
         onChange={handlePasswordChange}
         id="passwordInput"
@@ -71,9 +54,8 @@ function Register() {
         minLength="6"
         maxLength="40"
       />
-      <span className="auth__form-input-error auth__form-input-error_active">Что-то пошло не так...</span>
     </AuthForm>
   );
 }
 
-export default Register;
+export default Login;

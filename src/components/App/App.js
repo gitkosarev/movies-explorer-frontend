@@ -4,6 +4,7 @@ import { Routes, Route/* , useNavigate */ } from 'react-router-dom';
 import './App.css';
 
 import Register from '../Register/Register';
+import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Profile from '../Profile/Profile';
@@ -62,6 +63,12 @@ function App() {
           path="/signup"
           element={
             <Register />
+          }
+        />
+        <Route
+          path="/signin"
+          element={
+            <Login />
           }
         />
         <Route
