@@ -16,9 +16,8 @@ function Main({ isLoggedIn }) {
   const githubLink = "https://github.com/gitkosarev";
   return (
     <>
-      <Header isLoggedIn={false} isThemeGrey={true} />
+      <Header isLoggedIn={isLoggedIn} isThemeGrey={true} />
       <main className="main">
-        {/* подставить isLoggedIn пропс вместо false */}
         <Promo />
         <NavTab />
         <AboutProject />

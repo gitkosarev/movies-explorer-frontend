@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 
 import './Header.css';
 
+import Logo from '../Logo/Logo';
+
 function Header({ isLoggedIn, isThemeGrey }) {
   return (
     <header className={`header${isThemeGrey ? " header_theme_grey" : ""}`}>
       <div className="header__column header__column_nav">
-        <Link to="/">
-          <div className="header__logo"></div>
-        </Link>
-        <Link className="link header__link" to="/movies">
+        <Logo />
+        <Link className="link header__link header__link_position_first" to="/movies">
           Фильмы
         </Link>
         <Link className="link header__link" to="/saved-movies">

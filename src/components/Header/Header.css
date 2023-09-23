@@ -2,9 +2,22 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   background-color: #FAFAFA;
   margin: 0;
-  padding: 0;
+  padding: 18px 70px;
+}
+
+@media screen and (max-width: 1279px) {
+  .header {
+    padding: 18px 30px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header {
+    padding: 18px 14px;
+  }
 }
 
 /* activate */
@@ -16,6 +29,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   margin: 0;
   padding: 0;
 }
@@ -41,31 +55,8 @@
   }
 }
 
-.header__logo {
-  background-image: url(../../images/logo.svg);
-  background-size: contain;
-  background-repeat: no-repeat;
-  flex-shrink: 0;
-  width: 38px;
-  height: 38px;
-  margin: 18px 44px 18px 70px;
-  padding: 0;
-}
-
-@media screen and (max-width: 1279px) {
-  .header__logo {
-    margin: 18px 0 18px 30px;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .header__logo {
-    margin: 18px 0 18px 14px;
-  }
-}
-
 .header__link {
-  margin: 28px 16px 0 0;
+  margin: 0 0 0 16px;
   padding: 0;
 }
 
@@ -75,19 +66,23 @@
   }
 }
 
+.header__link_position_first {
+  margin-left: 44px;
+}
+
 /* activate */
 .header__link_active {
   font-weight: 500;
 }
 
 .header__signup {
-  margin: 29px 30px 29px 0;
+  margin: 0 30px 0 0;
   padding: 0;
 }
 
 @media screen and (max-width: 767px) {
   .header__signup {
-    margin: 29px 14px 29px 0;
+    margin: 0 14px 0 0;
   }
 }
 
@@ -98,13 +93,13 @@
   line-height: 16px;
   width: 76px;
   height: 32px;
-  margin: 21px 70px 21px 0;
+  margin: 0;
   padding: 0;
 }
 
 @media screen and (max-width: 1279px) {
   .header__button {
-    margin: 21px 30px 21px 0;
+    margin: 0;
   }
 }
 
@@ -113,7 +108,7 @@
     font-size: 10px;
     width: 54px;
     height: 26px;
-    margin: 24px 14px 24px 0;
+    margin: 0;
   }
 }
 
@@ -124,7 +119,7 @@
   flex-shrink: 0;
   width: 100px;
   height: 32px;
-  margin: 21px 70px 21px 0;
+  margin: 0;
   padding: 0;
 }
 
@@ -140,11 +135,13 @@
 }
 
 .header__menu {
+  display: none;
   background-image: url(../../images/hamburger.svg);
   background-size: contain;
   background-repeat: no-repeat;
   flex-shrink: 0;
-  display: none;
+  margin: 0;
+  padding: 0;
 }
 
 @media screen and (max-width: 1279px) {
@@ -152,8 +149,6 @@
     display: block;
     width: 44px;
     height: 44px;
-    margin: 15px 30px 15px 0;
-    padding: 0;
   }
 }
 
@@ -161,6 +156,5 @@
   .header__menu {
     width: 40px;
     height: 43px;
-    margin: 15px 14px 16px 0;
   }
 }

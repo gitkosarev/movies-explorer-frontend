@@ -3,6 +3,7 @@ import { Routes, Route/* , useNavigate */ } from 'react-router-dom';
 
 import './App.css';
 
+import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Profile from '../Profile/Profile';
@@ -52,11 +53,15 @@ function App() {
         <Route
           path="/"
           element={
-            <ProtectedRoute
-              component={Main}
+            <Main
               /* подставить isLoggedIn пропс */
-              isLoggedIn={true}
-            />
+              isLoggedIn={false} />
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <Register />
           }
         />
         <Route
