@@ -1,4 +1,5 @@
 .header {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -25,49 +26,53 @@
   background-color: #DDDEE3;
 }
 
-.header__column {
+.header__nav {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  width: 100%;
   margin: 0;
   padding: 0;
 }
 
-.header__column_nav {
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 18px;
-}
-
-.header__column_account {
+.header__nav_mode_authorized {
+  justify-content: space-between;
   color: #000;
-  font-size: 12px;
-  font-style: normal;
+  font-size: 13px;
   font-weight: 500;
   line-height: 16px;
 }
 
 @media screen and (max-width: 767px) {
-  .header__column_account {
+  .header__nav_mode_authorized {
     font-size: 10px;
   }
 }
 
-.header__link {
+.header__movies {
+  margin: 0 0 0 44px;
+  padding: 0;
+}
+
+@media screen and (max-width: 1279px) {
+  .header__movies {
+    display: none;
+  }
+}
+
+.header__saved-movies {
   margin: 0 0 0 16px;
   padding: 0;
 }
 
 @media screen and (max-width: 1279px) {
-  .header__link {
+  .header__saved-movies {
     display: none;
   }
-}
-
-.header__link_position_first {
-  margin-left: 44px;
 }
 
 /* activate */
@@ -76,50 +81,56 @@
 }
 
 .header__signup {
-  margin: 0 30px 0 0;
+  color: #000;
+  text-align: right;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  margin: 0 0 0 919px;
   padding: 0;
+}
+
+@media screen and (max-width: 1279px) {
+  .header__signup {
+    margin: 0 0 0 487px;
+  }
 }
 
 @media screen and (max-width: 767px) {
   .header__signup {
-    margin: 0 14px 0 0;
+    font-size: 10px;
+    margin: 0 0 0 122px;
   }
 }
 
-.header__button {
+.header__signin {
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
   line-height: 16px;
   width: 76px;
   height: 32px;
-  margin: 0;
+  margin: 0 0 0 30px;
   padding: 0;
 }
 
-@media screen and (max-width: 1279px) {
-  .header__button {
-    margin: 0;
-  }
-}
-
 @media screen and (max-width: 767px) {
-  .header__button {
+  .header__signin {
     font-size: 10px;
     width: 54px;
     height: 26px;
-    margin: 0;
+    margin: 0 0 0 14px;
   }
 }
 
 .header__account {
   background-image: url(../../images/account-button.svg);
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
-  flex-shrink: 0;
   width: 100px;
   height: 32px;
-  margin: 0;
+  margin: 0 0 0 746px;
   padding: 0;
 }
 
@@ -137,9 +148,8 @@
 .header__menu {
   display: none;
   background-image: url(../../images/hamburger.svg);
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
-  flex-shrink: 0;
   margin: 0;
   padding: 0;
 }
