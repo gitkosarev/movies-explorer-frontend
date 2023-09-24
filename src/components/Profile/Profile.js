@@ -4,7 +4,7 @@ import './Profile.css';
 
 import Header from '../Header/Header';
 
-function Profile({ isLoggedIn, saveProfile, singOut: signOut, currentUser }) {
+function Profile({ isLoggedIn, saveProfile, signOut, currentUser }) {
   // добавить контекст пользователя
   /* const currentUser = useContext(CurrentUserContext); */
 

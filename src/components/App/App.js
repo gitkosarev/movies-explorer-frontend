@@ -1,5 +1,5 @@
 import React/* , { useEffect } */ from 'react';
-import { Routes, Route/* , useNavigate */ } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import './App.css';
 
@@ -18,14 +18,17 @@ function App() {
   /* const [isLoggedIn, setIsLoggedIn] = React.useState(false); */
   const [currentUser, setCurrentUser] = React.useState({ name: "Vadim", email: "vadim@ya.ru" });
 
+  const navigate = useNavigate();
+
   function saveProfile(profile) {
     const name = profile?.name;
     const email = profile?.email;
     setCurrentUser({ name, email });
   };
 
-  function singOut() {
-    alert("Singed out now!");
+  function signOut() {
+    console.log("Singed out now!");
+    navigate("/", { replace: true });
   };
 
   function handleSubmitSearch(values) {
@@ -79,7 +82,7 @@ function App() {
               /* подставить isLoggedIn пропс */
               isLoggedIn={true}
               saveProfile={saveProfile}
-              singOut={singOut}
+              signOut={signOut}
               currentUser={currentUser}
             />
           }
