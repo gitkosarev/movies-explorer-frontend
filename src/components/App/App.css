@@ -5,7 +5,7 @@
 
 .link:hover {
   opacity: 0.7;
-  transition: opacity 0.6s;
+  transition: opacity 0.3s;
 }
 
 .button {
@@ -18,7 +18,7 @@
 
 .button:hover {
   opacity: 0.8;
-  transition: opacity 0.5s;
+  transition: opacity 0.3s;
 }
 
 .button_color_blue {

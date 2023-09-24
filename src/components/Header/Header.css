@@ -140,11 +140,6 @@
   }
 }
 
-.header__account:hover {
-  opacity: 0.8;
-  transition: opacity 0.5s;
-}
-
 .header__menu {
   display: none;
   background-image: url(../../images/hamburger.svg);
