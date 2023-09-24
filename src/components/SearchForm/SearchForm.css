@@ -103,6 +103,8 @@
 }
 
 .search-line__input:focus {
+  color: #000;
+  font-weight: 500;
   outline: none;
 }
 
