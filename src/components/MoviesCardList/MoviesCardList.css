@@ -16,6 +16,7 @@
 }
 
 .cards {
+  list-style: none;
   display: grid;
   grid-template-rows: repeat(1, 218px);
   grid-auto-rows: 218px;

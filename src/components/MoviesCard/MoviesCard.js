@@ -17,18 +17,15 @@ function MoviesCard({ card, onCardLike, isSavedCardMode }) {
   };
 
   return (
-    <article className="card">
+    <li className="card">
       {/* заменить на логику подстановки картинки */}
       <img className="card__image" src={picture} alt={`фото ${card.name}`} /* onClick={handleClick} */ />
       <div className="card__about">
         <h2 className="card__title">{card.name}</h2>
-        <button className={likeButtonClass}
-          onClick={handleLikeClick}
-          type="button">
-        </button>
+        <button className={likeButtonClass} onClick={handleLikeClick} type="button"></button>
       </div>
       <p className="card__time">{card.time}</p>
-    </article>
+    </li>
   )
 }
 

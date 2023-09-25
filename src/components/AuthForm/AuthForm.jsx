@@ -15,7 +15,7 @@ function AuthForm({ children, handleSubmit, captions }) {
     <main className="auth">
       <section className="auth__section">
         <Logo />
-        <h2 className="auth__title">{captions?.title}</h2>
+        <h1 className="auth__title">{captions?.title}</h1>
         <form className="auth__form"
           onSubmit={onSubmitClick}
           id="AuthForm"

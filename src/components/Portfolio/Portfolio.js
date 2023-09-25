@@ -5,9 +5,9 @@ import './Portfolio.css';
 function Portfolio() {
   return (
     <section className="portfolio" id="portfolioSection">
-      <h4 className="portfolio__title">
+      <h2 className="portfolio__title">
         Портфолио
-      </h4>
+      </h2>
       <ul className="portfolio__list">
         <li className="portfolio__list-item">
           <a className="link portfolio__link" href="https://github.com/gitkosarev/how-to-learn" target="_blank" rel="noreferrer">Статичный сайт</a>

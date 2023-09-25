@@ -5,15 +5,15 @@ import './AboutMe.css';
 function AboutMe({ avatar, githubLink }) {
   return (
     <section className="about" id="aboutSection">
-      <h3 className="about__title">
+      <h2 className="about__title">
         Студент
-      </h3>
+      </h2>
       <div className="about__content">
         <img className="about__content-image" alt="фото студента" src={avatar} />
         <div className="about__content-description">
-          <h4 className="about__name">
+          <h3 className="about__name">
             Вадим
-          </h4>
+          </h3>
           <h4 className="about__position">
             Фронтенд-разработчик, 33 года
           </h4>

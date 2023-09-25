@@ -145,6 +145,8 @@
   background-image: url(../../images/hamburger.svg);
   background-size: cover;
   background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
   margin: 0;
   padding: 0;
 }

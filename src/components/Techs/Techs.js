@@ -5,9 +5,9 @@ import './Techs.css';
 function Techs() {
   return (
     <section className="techs" id="techsSection">
-      <h3 className="techs__title">
+      <h2 className="techs__title">
         Технологии
-      </h3>
+      </h2>
       <div className="techs__content">
         <h3 className="techs__subtitle">
           7 технологий

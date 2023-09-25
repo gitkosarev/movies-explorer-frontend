@@ -79,13 +79,9 @@ function Profile({ isLoggedIn, saveProfile, signOut, currentUser }) {
                 maxLength="60"
               />
             </div>
-            <button className="button profile__submit" type="submit">
-              Редактировать
-            </button>
+            <button className="button profile__submit" type="submit">Редактировать</button>
           </form>
-          <button className="button profile__sign-out" onClick={handleSignOut} type="button">
-            Выйти из аккаунта
-          </button>
+          <button className="button profile__sign-out" onClick={handleSignOut} type="button">Выйти из аккаунта</button>
         </section>
       </main>
     </>

@@ -11,7 +11,7 @@ function MoviesCardList({ cards, onCardLike, loadMoreMovies, isSavedCardMode }) 
 
   return (
     <section className="movies-card-list">
-      <div className="cards">
+      <ul className="cards">
         {cards.map((item) => (
           <MoviesCard
             key={item.id}
@@ -20,13 +20,8 @@ function MoviesCardList({ cards, onCardLike, loadMoreMovies, isSavedCardMode }) 
             isSavedCardMode={isSavedCardMode}
           />
         ))}
-      </div>
-      <button className="button cards__load"
-        onClick={handleLoadMoreClick}
-        type="button"
-      >
-        Ещё
-      </button>
+      </ul>
+      <button className="button cards__load" onClick={handleLoadMoreClick} type="button">Ещё</button>
     </section>
   )
 }

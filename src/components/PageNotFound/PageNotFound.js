@@ -11,9 +11,9 @@ function PageNotFound() {
   };
   return (
     <main className="not-found">
-      <h2 className="not-found__title">
+      <h1 className="not-found__title">
         404
-      </h2>
+      </h1>
       <p className="not-found__text">
         Страница не найдена
       </p>
