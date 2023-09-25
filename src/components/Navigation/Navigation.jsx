@@ -1,15 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from 'react-router-dom';
 
 import './Navigation.css';
 import '../Header/Header.css';
 
-function Navigation() {
-  const [isBurger, setIsBurger] = useState(false);
+function Navigation({isBurger, onMenuClick}) {
 
-  function onMenuClick() {
-    setIsBurger(!isBurger);
-  };
   return (
     <nav className={`navigation${isBurger ? " navigation_mode_burger" : ""}`}>
       <Link className={`link header__main${isBurger ? " header__main_mode_burger" : ""}`} to="/">Главная</Link>

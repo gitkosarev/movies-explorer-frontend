@@ -39,6 +39,18 @@
   padding: 0;
 }
 
+.overlay::before {
+  content: '';
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.3;
+  background-color: #000;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 5;
+}
+
 .header__nav_mode_authorized {
   justify-content: space-between;
   color: #000;

@@ -11,7 +11,7 @@
 }
 
 .navigation_mode_burger {
-  position: absolute;
+  position: fixed;
   background-color: #FAFAFA;
   top: 0;
   right: 0;
@@ -103,7 +103,6 @@
   position: absolute;
   top: 33px;
   right: 33px;
-  z-index: 20;
   background-image: url(../../images/hamburger-close.svg);
 }
 

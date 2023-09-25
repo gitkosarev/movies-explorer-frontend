@@ -9,13 +9,13 @@
   letter-spacing: -0.88px;
   border-bottom: 1px solid rgba(0, 0, 0, 1);
   margin: 0 70px;
-  padding: 100px 0 23px 0;
+  padding: 111px 0 23px 0;
 }
 
 @media screen and (max-width: 1279px) {
   .about__title {
     margin: 0 50px;
-    padding: 90px 0 23px 0;
+    padding: 90px 0 24px 0;
   }
 }
 
@@ -24,7 +24,7 @@
     font-size: 18px;
     letter-spacing: -0.72px;
     margin: 0 14px;
-    padding: 70px 0 28px 0;
+    padding: 71px 0 28px 0;
   }
 }
 
@@ -180,11 +180,12 @@
 
 @media screen and (max-width: 1279px) {
   .about__link {
-    margin: 87px 0 0;
+    margin: 105px 0 0;
   }
 }
 
 @media screen and (max-width: 767px) {
   .about__link {
-    margin: 40px 0 0;}
+    margin: 56px 0 0;
+  }
 }

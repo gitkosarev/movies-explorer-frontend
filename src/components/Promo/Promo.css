@@ -7,15 +7,16 @@
   background-image: url(../../images/promo-logo.svg);
   background-size: 320px 320px;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: 480px 82px;
   background-color: #DDDEE3;
-  height: 524px;
+  height: 527px;
   margin: 0;
   padding: 0;
 }
 
 @media screen and (max-width: 1279px) {
   .promo {
+    background-position: 224px 224px;
     height: 784px;
   }
 }
@@ -23,6 +24,7 @@
 @media screen and (max-width: 767px) {
   .promo {
     background-size: 248px 248px;
+    background-position: 37px 143px;
     height: 570px;
   }
 }
@@ -34,12 +36,20 @@
   line-height: 58px;
   letter-spacing: -2px;
   max-width: 730px;
+  transform: translate(0px, -21px);
   margin: 0;
   padding: 0;
 }
 
+@media screen and (max-width: 1279px) {
+  .promo__text {
+    transform: translate(0px, -8px);
+  }
+}
+
 @media screen and (max-width: 767px) {
   .promo__text {
+    transform: translate(0px, -20px);
     font-size: 31px;
     line-height: 39px;
     letter-spacing: -1.24px;

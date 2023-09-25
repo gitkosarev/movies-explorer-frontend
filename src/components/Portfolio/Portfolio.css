@@ -10,7 +10,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: 20px;
-  margin: 100px 0 0;
+  margin: 102px 0 0;
   padding: 0 70px;
 }
 
@@ -33,7 +33,7 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  margin: 50px 0 125px;
+  margin: 49px 0 106px;
   padding: 0 70px;
 }
 
@@ -57,8 +57,12 @@
   justify-content: space-between;
   vertical-align: baseline;
   border-bottom: 1px solid rgba(232, 232, 232, 1);
-  margin: 0;
+  margin: 20px 0 0;
   padding: 0;
+}
+
+.portfolio__list-item:first-child {
+  margin: 0;
 }
 
 .portfolio__list-item:last-child {
@@ -67,7 +71,7 @@
 
 @media screen and (max-width: 767px) {
   .portfolio__list-item {
-    padding: 0 0 19px;
+    padding: 0;
   }
 
   .portfolio__list-item:last-child {
@@ -83,7 +87,7 @@
   line-height: 50px;
   letter-spacing: -1.2px;
   margin: 0;
-  padding: 0;
+  padding: 0 0 19px;
 }
 
 @media screen and (max-width: 1279px) {

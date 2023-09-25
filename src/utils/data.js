@@ -71,6 +71,30 @@ export const cardArray = [
     link: '../../images/cards/12.png',
     time: "1ч42м"
   },
+  {
+    id: 13,
+    name: '33 слова о дизайне',
+    link: '../../images/cards/12.png',
+    time: "1ч42м"
+  },
+  {
+    id: 14,
+    name: '33 слова о дизайне',
+    link: '../../images/cards/12.png',
+    time: "1ч42м"
+  },
+  {
+    id: 15,
+    name: '33 слова о дизайне',
+    link: '../../images/cards/12.png',
+    time: "1ч42м"
+  },
+  {
+    id: 16,
+    name: '33 слова о дизайне',
+    link: '../../images/cards/12.png',
+    time: "1ч42м"
+  },
 ];
 
 export const savedCardArray = [

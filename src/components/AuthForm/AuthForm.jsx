@@ -24,7 +24,9 @@ function AuthForm({ children, handleSubmit, captions }) {
           method="post"
           autoComplete="off"
         >
-          {children}
+          <div className="auth__form-content">
+            {children}
+          </div>
           <button className="button auth__submit" type="submit">{captions?.submit}</button>
         </form>
         <div className="auth__extra">

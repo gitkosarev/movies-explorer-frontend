@@ -30,13 +30,13 @@
 
 @media screen and (max-width: 1279px) {
   .profile__title {
-    margin: 236px 0 0;
+    margin: 234px 0 0;
   }
 }
 
 @media screen and (max-width: 767px) {
   .profile__title {
-    margin: 70px 0 0;
+    margin: 68px 0 0;
   }
 }
 
@@ -117,7 +117,7 @@
 
 @media screen and (max-width: 1279px) {
   .profile__submit {
-    margin: 210px 0 0;
+    margin: 209px 0 0;
   }
 }
 

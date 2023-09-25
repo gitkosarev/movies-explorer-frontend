@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 
 import './Header.css';
@@ -7,10 +7,15 @@ import Logo from '../Logo/Logo';
 import Navigation from '../Navigation/Navigation';
 
 function Header({ isLoggedIn, isThemeGrey }) {
+  const [isBurger, setIsBurger] = useState(false);
   const navigate = useNavigate();
 
   function onSignInClick() {
     navigate("/signin");
+  };
+
+  function onMenuClick() {
+    setIsBurger(!isBurger);
   };
 
   return (
@@ -18,9 +23,9 @@ function Header({ isLoggedIn, isThemeGrey }) {
       {
         isLoggedIn
           ?
-          <div className="header__nav header__nav_mode_authorized">
+          <div className={`header__nav header__nav_mode_authorized${isBurger ? " overlay" : ""}`}>
             <Logo />
-            <Navigation />
+            <Navigation isBurger={isBurger} onMenuClick={onMenuClick} />
           </div>
           :
           <div className="header__nav">
