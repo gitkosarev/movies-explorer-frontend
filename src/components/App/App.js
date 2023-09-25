@@ -59,7 +59,7 @@ function App() {
           element={
             <Main
               /* подставить isLoggedIn пропс */
-              isLoggedIn={true} />
+              isLoggedIn={false} />
           }
         />
         <Route
