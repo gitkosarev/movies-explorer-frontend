@@ -153,6 +153,7 @@
 }
 
 .header__menu {
+  cursor: pointer;
   display: none;
   background-image: url(../../images/hamburger.svg);
   background-size: cover;
