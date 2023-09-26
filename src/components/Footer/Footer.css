@@ -33,12 +33,12 @@
   border-bottom: 1px solid rgba(232, 232, 232, 1);
   width: 100%;
   margin: 0 auto;
-  padding: 79px 0 20px;
+  padding: 81px 0 20px;
 }
 
 @media screen and (max-width: 1279px) {
   .footer__info {
-    padding: 60px 0 21px;
+    padding: 62px 0 21px;
   }
 }
 
