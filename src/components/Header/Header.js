@@ -23,16 +23,16 @@ function Header({ isLoggedIn, isThemeGrey }) {
       {
         isLoggedIn
           ?
-          <div className={`header__nav header__nav_mode_authorized${isBurger ? " overlay" : ""}`}>
+          <nav className={`header__nav header__nav_mode_authorized${isBurger ? " overlay" : ""}`}>
             <Logo />
             <Navigation isBurger={isBurger} onMenuClick={onMenuClick} />
-          </div>
+          </nav>
           :
-          <div className="header__nav">
+          <nav className="header__nav">
             <Logo />
             <Link className="link header__signup" to="/signup">Регистрация</Link>
             <button className="button button_color_blue header__signin" onClick={onSignInClick} type="button">Войти</button>
-          </div>
+          </nav>
       }
     </header>
   );
