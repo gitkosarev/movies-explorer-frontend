@@ -11,20 +11,20 @@ function Portfolio() {
       <ul className="portfolio__list">
         <li className="portfolio__list-item">
           <a className="link portfolio__link" href="https://github.com/gitkosarev/how-to-learn" target="_blank" rel="noreferrer">
-            <span className="link portfolio__link-text">Статичный сайт</span>
+            <span className="portfolio__link-text">Статичный сайт</span>
             <span className="portfolio__link-arrow">&#8599;</span>
           </a>
 
         </li>
         <li className="portfolio__list-item">
           <a className="link portfolio__link" href="https://github.com/gitkosarev/russian-travel" target="_blank" rel="noreferrer">
-            <span className="link portfolio__link-text">Адаптивный сайт</span>
+            <span className="portfolio__link-text">Адаптивный сайт</span>
             <span className="portfolio__link-arrow">&#8599;</span>
           </a>
         </li>
         <li className="portfolio__list-item">
           <a className="link portfolio__link" href="https://github.com/gitkosarev/react-mesto-api-full-gha" target="_blank" rel="noreferrer">
-            <span className="link portfolio__link-text">Одностраничное приложение</span>
+            <span className="portfolio__link-text">Одностраничное приложение</span>
             <span className="portfolio__link-arrow">&#8599;</span>
           </a>
         </li>
