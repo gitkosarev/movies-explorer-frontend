@@ -16,7 +16,7 @@
   }
 }
 
-.nav-tab_menu {
+.nav-tab__menu {
   list-style: none;
   display: flex;
   flex-direction: row;
@@ -28,7 +28,7 @@
 }
 
 @media screen and (max-width: 767px) {
-  .nav-tab_menu {
+  .nav-tab__menu {
     gap: 24px;
   }
 }
