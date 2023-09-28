@@ -1,0 +1,181 @@
+.header {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FAFAFA;
+  margin: 0;
+  padding: 18px 70px;
+}
+
+@media screen and (max-width: 1279px) {
+  .header {
+    padding: 18px 30px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header {
+    padding: 18px 14px;
+  }
+}
+
+/* activate */
+.header_theme_grey {
+  background-color: #DDDEE3;
+}
+
+.header__nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.overlay::before {
+  content: '';
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.3;
+  background-color: #000;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 5;
+}
+
+.header__nav_mode_authorized {
+  justify-content: space-between;
+  color: #000;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+@media screen and (max-width: 767px) {
+  .header__nav_mode_authorized {
+    font-size: 10px;
+  }
+}
+
+.header__movies {
+  margin: 0 0 0 44px;
+  padding: 0;
+}
+
+@media screen and (max-width: 1279px) {
+  .header__movies {
+    display: none;
+  }
+}
+
+.header__saved-movies {
+  margin: 0 0 0 16px;
+  padding: 0;
+}
+
+@media screen and (max-width: 1279px) {
+  .header__saved-movies {
+    display: none;
+  }
+}
+
+/* activate */
+.header__link_active {
+  font-weight: 500;
+}
+
+.header__signup {
+  color: #000;
+  text-align: right;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  margin: 0 0 0 919px;
+  padding: 0;
+}
+
+@media screen and (max-width: 1279px) {
+  .header__signup {
+    margin: 0 0 0 487px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header__signup {
+    font-size: 10px;
+    margin: 0 0 0 122px;
+  }
+}
+
+.header__signin {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  flex-shrink: 0;
+  width: 76px;
+  height: 32px;
+  margin: 0 0 0 30px;
+  padding: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .header__signin {
+    font-size: 10px;
+    width: 54px;
+    height: 26px;
+    margin: 0 0 0 14px;
+  }
+}
+
+.header__account {
+  background-image: url(../../images/account-button.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 32px;
+  margin: 0 0 0 746px;
+  padding: 0;
+}
+
+@media screen and (max-width: 1279px) {
+  .header__account {
+    display: none;
+  }
+}
+
+.header__menu {
+  cursor: pointer;
+  display: none;
+  background-image: url(../../images/hamburger.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 1279px) {
+  .header__menu {
+    display: block;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header__menu {
+    width: 40px;
+    height: 43px;
+  }
+}

@@ -1,0 +1,147 @@
+.profile {
+  margin: 0;
+  padding: 0;
+}
+
+.profile__section {
+  display: flex;
+  flex-direction: column;
+  width: 410px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__section {
+    width: 300px;
+  }
+}
+
+.profile__title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 74px 0 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 1279px) {
+  .profile__title {
+    margin: 234px 0 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .profile__title {
+    margin: 68px 0 0;
+  }
+}
+
+.profile__form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  margin: 123px 0 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 1279px) {
+  .profile__form {
+    margin: 96px 0 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .profile__form {
+    margin: 80px 0 0;
+    padding: 0 20px;
+  }
+}
+
+.profile__form-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 17px 0 0;
+}
+
+.profile__form-row:first-child {
+  border-bottom: 1px solid rgba(232, 232, 232, 1);
+  padding: 0 0 16px;
+}
+
+.profile__label {
+  font-size: 11px;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+}
+
+.profile__input {
+  text-align: right;
+  font-size: 11px;
+  font-weight: 400;
+  background-color: #FAFAFA;
+  border: none;
+  width: 60%;
+  margin: 0;
+  padding: 0;
+}
+
+.profile__input:focus {
+  color: #000;
+  font-size: 12px;
+  font-weight: 500;
+  outline: none;
+}
+
+.profile__submit {
+  background-color: #FAFAFA;
+  color: #000;
+  text-align: center;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 220px 0 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 1279px) {
+  .profile__submit {
+    margin: 209px 0 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .profile__submit {
+    font-size: 12px;
+    margin: 379px 0 0;
+  }
+}
+
+.profile__sign-out {
+  background-color: #FAFAFA;
+  color: #EE3465;
+  text-align: center;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 16px 0 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__sign-out {
+    font-size: 12px;
+  }
+}

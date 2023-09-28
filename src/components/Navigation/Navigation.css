@@ -1,0 +1,121 @@
+.navigation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+@media screen and (max-width: 1279px) {
+  .navigation {
+    flex-direction: column;
+  }
+}
+
+.navigation_mode_burger {
+  position: fixed;
+  background-color: #FAFAFA;
+  top: 0;
+  right: 0;
+  z-index: 10;
+}
+
+@media screen and (max-width: 1279px) {
+  .navigation_mode_burger {
+    width: 520px;
+    height: 100vh;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .navigation_mode_burger {
+    width: 100vw;
+  }
+}
+
+.header__main {
+  display: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header__main_mode_burger {
+  display: block;
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 159px 0 0;
+}
+
+@media screen and (max-width: 767px) {
+  .header__main_mode_burger {
+    margin: 144px 0 0;
+  }
+}
+
+.header__movies_mode_burger {
+  display: block;
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 22px 0 0;
+}
+
+@media screen and (max-width: 767px) {
+  .header__movies_mode_burger {
+    margin: 15px 0 0;
+  }
+}
+
+.header__saved-movies_mode_burger {
+  display: block;
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 22px 0 0;
+}
+
+@media screen and (max-width: 767px) {
+  .header__saved-movies_mode_burger {
+    margin: 15px 0 0;
+  }
+}
+
+.header__account_mode_burger {
+  display: block;
+  margin: 615px 0 0;
+}
+
+@media screen and (max-width: 767px) {
+  .header__account_mode_burger {
+    margin: 435px 0 0;
+  }
+}
+
+.header__menu_mode_burger {
+  position: absolute;
+  top: 33px;
+  right: 33px;
+  background-image: url(../../images/hamburger-close.svg);
+}
+
+@media screen and (max-width: 1279px) {
+  .header__menu_mode_burger {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header__menu_mode_burger {
+    top: 24px;
+    right: 24px;
+  }
+}
