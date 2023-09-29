@@ -1,7 +1,9 @@
-import React/* , { useEffect } */ from 'react';
+import './App.css';
+import React, { useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
-import './App.css';
+import auth from '../../utils/Auth.js';
+import mainApi from '../../utils/MainApi.js';
 
 import Register from '../Register/Register';
 import Login from '../Login/Login';
@@ -15,20 +17,77 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import { cardArray, savedCardArray } from '../../utils/data';
 
 function App() {
-  /* const [isLoggedIn, setIsLoggedIn] = React.useState(false); */
-  const [currentUser, setCurrentUser] = React.useState({ name: "Vadim", email: "vadim@ya.ru" });
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [currentUser, setCurrentUser] = React.useState({ id: "", name: "", email: "" });
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const navigate = useNavigate();
 
-  function saveProfile(profile) {
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      setUserInfo(jwt);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function setUserInfo(token) {
+    auth.getUserInfo(token)
+      .then((response) => {
+        onLoginSuccess(response);
+      })
+      .catch(error => {
+        localStorage.removeItem("jwt");
+        // todo: добавить модальное окно с ошибкой для пользователя
+        alert(`status: ${error.status}. Error: ${error.statusText}`);
+      });
+  };
+
+  function onLoginSuccess(user) {
+    setIsLoggedIn(true);
+    setCurrentUser({
+      id: user._id,
+      name: user.name,
+      email: user.email
+    });
+    navigate("/movies", { replace: true });
+  };
+
+  function onSignIn({ email, password }) {
+    auth.signin(email, password)
+      .then((response) => {
+        localStorage.setItem("jwt", response.token);
+        setUserInfo(response.token);
+      })
+      .catch(error => {
+        // todo: добавить модальное окно с ошибкой для пользователя
+        alert(`status: ${error.status}. Error: ${error.statusText}`);
+      });
+  };
+
+  function onSignUp({ name, email, password }) {
+    auth.signup(name, email, password)
+      .then(() => {
+        navigate("/signin");
+      })
+      .catch(error => {
+        // todo: добавить модальное окно с ошибкой для пользователя
+        alert(`status: ${error.status}. Error: ${error.statusText}`);
+      });
+  };
+
+  function onSignOut() {
+    if (isLoggedIn) {
+      localStorage.removeItem("jwt");
+      setIsLoggedIn(false);
+      navigate("/", { replace: true });
+    }
+  };
+
+  function onEditProfile(profile) {
     const name = profile?.name;
     const email = profile?.email;
     setCurrentUser({ name, email });
-  };
-
-  function signOut() {
-    console.log("Singed out now!");
-    navigate("/", { replace: true });
   };
 
   function handleSubmitSearch(values) {
@@ -58,20 +117,19 @@ function App() {
           path="/"
           element={
             <Main
-              /* подставить isLoggedIn пропс */
-              isLoggedIn={false} />
+              isLoggedIn={isLoggedIn} />
           }
         />
         <Route
           path="/signup"
           element={
-            <Register />
+            <Register onSignUp={onSignUp} />
           }
         />
         <Route
           path="/signin"
           element={
-            <Login />
+            <Login onSignIn={onSignIn} />
           }
         />
         <Route
@@ -79,10 +137,9 @@ function App() {
           element={
             <ProtectedRoute
               component={Profile}
-              /* подставить isLoggedIn пропс */
-              isLoggedIn={true}
-              saveProfile={saveProfile}
-              signOut={signOut}
+              isLoggedIn={isLoggedIn}
+              editProfile={onEditProfile}
+              signOut={onSignOut}
               currentUser={currentUser}
             />
           }
@@ -92,10 +149,8 @@ function App() {
           element={
             <ProtectedRoute
               component={Movies}
-              /* подставить isLoggedIn пропс */
-              isLoggedIn={true}
-              /* подставить isLoading пропс */
-              isLoading={false}
+              isLoggedIn={isLoggedIn}
+              isLoading={isLoading}
               handleSubmitSearch={handleSubmitSearch}
               cards={cardArray}
               onCardLike={handleCardLike}
@@ -109,10 +164,8 @@ function App() {
             <>
               <ProtectedRoute
                 component={SavedMovies}
-                /* подставить isLoggedIn пропс */
-                isLoggedIn={true}
-                /* подставить isLoading пропс */
-                isLoading={false}
+                isLoggedIn={isLoggedIn}
+                isLoading={isLoading}
                 handleSubmitSearch={handleSubmitSearch}
                 cards={savedCardArray}
                 onCardLike={handleCardLike}

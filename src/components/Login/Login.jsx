@@ -4,7 +4,7 @@ import './Login.css';
 
 import AuthForm from '../AuthForm/AuthForm';
 
-function Login() {
+function Login({ onSignIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -25,7 +25,7 @@ function Login() {
   };
 
   function handleSubmit() {
-    alert("Вы авторизовались в системе!");
+    onSignIn({ email, password });
   };
 
   return (

@@ -4,7 +4,7 @@ import './Register.css';
 
 import AuthForm from '../AuthForm/AuthForm';
 
-function Register() {
+function Register({ onSignUp }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,7 +30,7 @@ function Register() {
   };
 
   function handleSubmit() {
-    alert("Регистрация прошла успешно!");
+    onSignUp({ name, email, password });
   };
 
   return (

@@ -4,12 +4,12 @@ import './Profile.css';
 
 import Header from '../Header/Header';
 
-function Profile({ isLoggedIn, saveProfile, signOut, currentUser }) {
+function Profile({ isLoggedIn, editProfile, signOut, currentUser }) {
   // добавить контекст пользователя
   /* const currentUser = useContext(CurrentUserContext); */
 
-  const [name, setName] = useState("Vadim");
-  const [email, setEmail] = useState("vadim@ya.ru");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     setName(currentUser?.name);
@@ -26,7 +26,7 @@ function Profile({ isLoggedIn, saveProfile, signOut, currentUser }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    saveProfile({ name, email });
+    editProfile({ name, email });
   };
 
   function handleSignOut() {
