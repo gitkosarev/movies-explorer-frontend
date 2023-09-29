@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 
 import './Profile.css';
 
 import Header from '../Header/Header';
 
-function Profile({ isLoggedIn, editProfile, signOut, currentUser }) {
-  // добавить контекст пользователя
-  /* const currentUser = useContext(CurrentUserContext); */
-
+function Profile({ isLoggedIn, editProfile, signOut }) {
+  const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 

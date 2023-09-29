@@ -5,6 +5,8 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import auth from '../../utils/Auth.js';
 import mainApi from '../../utils/MainApi.js';
 
+import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
+
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
@@ -111,7 +113,7 @@ function App() {
   };
 
   return (
-    <>
+    <CurrentUserContext.Provider value={currentUser}>
       <Routes>
         <Route
           path="/"
@@ -140,7 +142,6 @@ function App() {
               isLoggedIn={isLoggedIn}
               editProfile={onEditProfile}
               signOut={onSignOut}
-              currentUser={currentUser}
             />
           }
         />
@@ -181,7 +182,7 @@ function App() {
           }
         />
       </Routes>
-    </>
+    </CurrentUserContext.Provider>
   );
 }
 
