@@ -15,6 +15,7 @@ import Profile from '../Profile/Profile';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import InfoPopup from '../InfoPopup/InfoPopup';
 
 import { cardArray, savedCardArray } from '../../utils/data';
 
@@ -22,6 +23,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({ id: "", name: "", email: "" });
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isInfoPopupOpen, setIsInfoPopupOpen] = React.useState(false);
+  const [infoPopupData, setInfoPopupData] = React.useState({ text: "Информационное окно", isError: false });
 
   const navigate = useNavigate();
 
@@ -40,8 +43,8 @@ function App() {
       })
       .catch(error => {
         localStorage.removeItem("jwt");
-        // todo: добавить модальное окно с ошибкой для пользователя
-        alert(`status: ${error.status}. Error: ${error.statusText}`);
+        console.error(error);
+        openInfoPopup("Произошла ошибка при загрузке профиля.", true);
       });
   };
 
@@ -62,8 +65,14 @@ function App() {
         setUserInfo(response.token);
       })
       .catch(error => {
-        // todo: добавить модальное окно с ошибкой для пользователя
-        alert(`status: ${error.status}. Error: ${error.statusText}`);
+        console.error(error);
+        if (error.status === 401) {
+          openInfoPopup("Вы ввели неправильный логин или пароль.", true);
+        } else if (error.status === 400) {
+          openInfoPopup("Введенные данные некорректны.", true);
+        } else {
+          openInfoPopup("500 На сервере произошла ошибка.", true);
+        }
       });
   };
 
@@ -73,8 +82,12 @@ function App() {
         navigate("/signin");
       })
       .catch(error => {
-        // todo: добавить модальное окно с ошибкой для пользователя
-        alert(`status: ${error.status}. Error: ${error.statusText}`);
+        console.error(error);
+        if (error.status === 409) {
+          openInfoPopup("Пользователь с таким email уже существует.", true);
+        } else {
+          openInfoPopup("При регистрации пользователя произошла ошибка.", true);
+        }
       });
   };
 
@@ -95,14 +108,13 @@ function App() {
           name: response.name,
           email: response.email
         });
-        alert("Данные успешно обновлены!");
+        openInfoPopup("Данные успешно обновлены!", false);
       })
       .catch(error => {
-        // todo: добавить модальное окно с ошибкой для пользователя
         if (error.status === 401) {
-          alert("При авторизации произошла ошибка. Токен не передан или передан не в том формате.");
+          openInfoPopup("При авторизации произошла ошибка. Токен не передан или передан не в том формате.", true);
         } else if (error.status === 409) {
-          alert("Пользователь с таким email уже существует.");
+          openInfoPopup("Пользователь с таким email уже существует.", true);
         }
       });
   };
@@ -125,6 +137,16 @@ function App() {
 
   function loadMoreMovies() {
     alert("load more movies clicked!");
+  };
+
+  function openInfoPopup(text, isError) {
+    setInfoPopupData({ text, isError });
+    setIsInfoPopupOpen(true);
+  };
+
+  function closeInfoPopup() {
+    setIsInfoPopupOpen(false);
+    setInfoPopupData({ text: "", isError: false });
   };
 
   return (
@@ -197,6 +219,7 @@ function App() {
           }
         />
       </Routes>
+      <InfoPopup isOpen={isInfoPopupOpen} messageData={infoPopupData} onClose={closeInfoPopup} />
     </CurrentUserContext.Provider>
   );
 }
