@@ -12,6 +12,8 @@ class MainApi {
     }
   };
 
+  //#region GET
+
   getUserInfo(token) {
     this._headers["Authorization"] = `Bearer ${token}`;
     return fetch(`${this._baseUrl}/users/me`, {
@@ -21,22 +23,33 @@ class MainApi {
       .then(this._handleResponse);
   };
 
-  getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
-      method: "GET",
-      headers: this._headers
-    })
-      .then(this._handleResponse);
-  };
+  //#endregion
 
-  updateProfile(name, about) {
+  //#region PATCH
+
+  updateProfile(token, name, email) {
+    this._headers["Authorization"] = `Bearer ${token}`;
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         name,
-        about
+        email
       })
+    })
+      .then(this._handleResponse);
+  };
+
+  //#endregion
+
+
+
+
+
+  getInitialCards() {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: "GET",
+      headers: this._headers
     })
       .then(this._handleResponse);
   };

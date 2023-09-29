@@ -86,10 +86,25 @@ function App() {
     }
   };
 
-  function onEditProfile(profile) {
-    const name = profile?.name;
-    const email = profile?.email;
-    setCurrentUser({ name, email });
+  function onEditProfile(user) {
+    const token = localStorage.getItem("jwt");
+    mainApi.updateProfile(token, user.name, user.email)
+      .then((response) => {
+        setCurrentUser({
+          ...currentUser,
+          name: response.name,
+          email: response.email
+        });
+        alert("Данные успешно обновлены!");
+      })
+      .catch(error => {
+        // todo: добавить модальное окно с ошибкой для пользователя
+        if (error.status === 401) {
+          alert("При авторизации произошла ошибка. Токен не передан или передан не в том формате.");
+        } else if (error.status === 409) {
+          alert("Пользователь с таким email уже существует.");
+        }
+      });
   };
 
   function handleSubmitSearch(values) {
