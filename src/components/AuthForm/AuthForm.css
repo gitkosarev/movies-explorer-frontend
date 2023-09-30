@@ -124,10 +124,8 @@
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   line-height: normal;
+  height: 24px;
   max-width: 100%;
   margin: 6px 0 0;
   padding: 0;
@@ -164,6 +162,13 @@
     font-size: 12px;
     margin: 183px 0 0;
   }
+}
+
+/* activate */
+.auth__submit_disabled {
+  cursor: auto;
+  color: #C2C2C2;
+  background-color: #F8F8F8;
 }
 
 .auth__extra {

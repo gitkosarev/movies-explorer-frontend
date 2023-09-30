@@ -5,7 +5,7 @@ import './AuthForm.css';
 
 import Logo from '../Logo/Logo';
 
-function AuthForm({ children, handleSubmit, captions }) {
+function AuthForm({ children, handleSubmit, captions, isValid }) {
   function onSubmitClick(e) {
     e.preventDefault();
     handleSubmit();
@@ -27,7 +27,10 @@ function AuthForm({ children, handleSubmit, captions }) {
           <div className="auth__form-content">
             {children}
           </div>
-          <button className="button auth__submit" type="submit">{captions?.submit}</button>
+          <button className={`button auth__submit${isValid ? "" : " auth__submit_disabled"}`}
+            type="submit"
+            disabled={!isValid}
+          >{captions?.submit}</button>
         </form>
         <div className="auth__extra">
           <p className="auth__extra-text">{captions?.extraText}</p>

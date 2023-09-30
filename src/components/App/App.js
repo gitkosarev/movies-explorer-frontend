@@ -59,6 +59,7 @@ function App() {
   };
 
   function onSignIn({ email, password }) {
+    setIsLoading(true);
     auth.signin(email, password)
       .then((response) => {
         localStorage.setItem("jwt", response.token);
@@ -73,10 +74,14 @@ function App() {
         } else {
           openInfoPopup("500 На сервере произошла ошибка.", true);
         }
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
   function onSignUp({ name, email, password }) {
+    setIsLoading(true);
     auth.signup(name, email, password)
       .then(() => {
         navigate("/signin");
@@ -88,6 +93,9 @@ function App() {
         } else {
           openInfoPopup("При регистрации пользователя произошла ошибка.", true);
         }
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -101,6 +109,7 @@ function App() {
 
   function onEditProfile(user) {
     const token = localStorage.getItem("jwt");
+    setIsLoading(true);
     mainApi.updateProfile(token, user.name, user.email)
       .then((response) => {
         setCurrentUser({
@@ -115,7 +124,12 @@ function App() {
           openInfoPopup("При авторизации произошла ошибка. Токен не передан или передан не в том формате.", true);
         } else if (error.status === 409) {
           openInfoPopup("Пользователь с таким email уже существует.", true);
+        } else {
+          openInfoPopup("При сохранении профиля произошла ошибка.", true);
         }
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 

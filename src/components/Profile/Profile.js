@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
 import './Profile.css';
 
@@ -7,24 +8,23 @@ import Header from '../Header/Header';
 
 function Profile({ isLoggedIn, editProfile, signOut }) {
   const currentUser = useContext(CurrentUserContext);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const { values, handleChange, setDefaultValues, errors, isValid } = useFormWithValidation();
+  const [isEdittingMode, setIsEdittingMode] = useState(false);
 
   useEffect(() => {
-    setName(currentUser?.name);
-    setEmail(currentUser?.email);
-  }, [currentUser]);
-
-  function handleNameChange(e) {
-    setName(e.target.value);
-  };
-
-  function handleEmailChange(e) {
-    setEmail(e.target.value);
-  };
+    const { name, email } = currentUser;
+    setDefaultValues({
+      ...values,
+      name,
+      email
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
+    setIsEdittingMode(false);
+    const { name, email } = values;
     editProfile({ name, email });
   };
 
@@ -37,7 +37,7 @@ function Profile({ isLoggedIn, editProfile, signOut }) {
       <Header isLoggedIn={isLoggedIn} isThemeGrey={false} />
       <main className="profile">
         <section className="profile__section">
-          <h2 className="profile__title">{`Привет, ${currentUser?.name}!`}</h2>
+          <h2 className="profile__title">{`Привет, ${values.name ? values.name : currentUser.name}!`}</h2>
           <form className="profile__form"
             onSubmit={handleSubmit}
             id="ProfileForm"
@@ -51,36 +51,61 @@ function Profile({ isLoggedIn, editProfile, signOut }) {
                 Имя
               </label>
               <input className="profile__input"
-                value={name}
-                onChange={handleNameChange}
+                value={values.name ? values.name : currentUser.name}
+                onChange={handleChange}
                 id="nameInput"
                 type="text"
                 name="name"
                 required
+                readOnly={!isEdittingMode}
                 placeholder="Имя"
                 minLength="2"
-                maxLength="40"
+                maxLength="30"
+                pattern="^[a-zA-Zа-яА-Я\s\-]+$"
               />
             </div>
+            <span className={`profile__form-input-error${errors.name ? " profile__form-input-error_active" : ""}`}>{errors?.name}</span>
             <div className="profile__form-row">
               <label htmlFor="emailInput" className="profile__label">
                 E-mail
               </label>
               <input className="profile__input"
-                value={email}
-                onChange={handleEmailChange}
+                value={values.email ? values.email : currentUser.email}
+                onChange={handleChange}
                 id="emailInput"
                 type="email"
                 name="email"
-                required
                 placeholder="E-mail"
+                required
+                readOnly={!isEdittingMode}
                 minLength="2"
-                maxLength="60"
+                pattern="^[\w\.\%\+\-]+@[\w\.\-]+\.[a-zA-Z]{2,}$"
               />
             </div>
-            <button className="button profile__submit" type="submit">Редактировать</button>
+            <span className={`profile__form-input-error${errors.email ? " profile__form-input-error_active" : ""}`}>{errors?.email}</span>
+            {/* <span className={`profile__form-error${apiError ? " profile__form-error_active" : ""}`}>{apiError}</span> */}
+            {
+              isEdittingMode
+              &&
+              <button className={`button button_color_blue profile__submit${isValid ? "" : " profile__submit_disabled"}`}
+                type="submit"
+                disabled={!isValid}
+              >Сохранить</button>
+            }
           </form>
-          <button className="button profile__sign-out" onClick={handleSignOut} type="button">Выйти из аккаунта</button>
+          {
+            !isEdittingMode
+            &&
+            <>
+              <button className="button profile__edit"
+                type="button"
+                onClick={() => setIsEdittingMode(true)}
+              >Редактировать</button>
+              <button className="button profile__sign-out"
+                type="button"
+                onClick={handleSignOut}
+              >Выйти из аккаунта</button></>
+          }
         </section>
       </main>
     </>
