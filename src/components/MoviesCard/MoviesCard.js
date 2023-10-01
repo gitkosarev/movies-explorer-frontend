@@ -2,7 +2,8 @@ import React from 'react';
 
 import './MoviesCard.css';
 
-import picture from '../../images/cards/mountain.png';
+import { imageServerURL } from '../../utils/Consts.js';
+import { getFormattedDuration } from '../../utils/DurationCalculator.js';
 
 function MoviesCard({ card, onCardLike, isSavedCardMode }) {
   // заменить на логику
@@ -17,14 +18,15 @@ function MoviesCard({ card, onCardLike, isSavedCardMode }) {
   };
 
   return (
-    <li className="card">
-      {/* заменить на логику подстановки картинки */}
-      <img className="card__image" src={picture} alt={`фото ${card.name}`} /* onClick={handleClick} */ />
-      <div className="card__about">
-        <h2 className="card__title">{card.name}</h2>
-        <button className={likeButtonClass} onClick={handleLikeClick} type="button"></button>
-      </div>
-      <p className="card__time">{card.time}</p>
+    <li>
+      <a className="link card" href={card.trailerLink} target="_blank" rel="noreferrer">
+        <img className="card__image" src={`${imageServerURL}${card.image.url}`} alt={`фото ${card.nameRU}`} />
+        <div className="card__about">
+          <h2 className="card__title">{card.nameRU}</h2>
+          <button className={likeButtonClass} onClick={handleLikeClick} type="button"></button>
+        </div>
+        <p className="card__time">{getFormattedDuration(card.duration)}</p>
+      </a>
     </li>
   )
 }

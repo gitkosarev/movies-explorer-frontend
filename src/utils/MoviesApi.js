@@ -1,33 +1,35 @@
+import { moviesApiURL } from './Consts.js';
+
 class MoviesApi {
-  constructor(baseUrl, headers) {
-    this._baseUrl = baseUrl;
-    this._headers = headers;
-  };
+    constructor(baseUrl, headers) {
+      this._baseUrl = baseUrl;
+      this._headers = headers;
+    };
 
-  _handleResponse(response) {
-    if (response.ok) {
-      return response.json();
-    } else {
-      return Promise.reject(response);
-    }
-  };
+    _handleResponse(response) {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(response);
+      }
+    };
 
-  //#region GET
+    //#region GET
 
-  getMovies() {
-    return fetch(`${this._baseUrl}`, {
-      method: "GET",
-      headers: this._headers
-    })
-      .then(this._handleResponse);
-  };
+    getMovies() {
+      return fetch(`${this._baseUrl}`, {
+        method: "GET",
+        headers: this._headers
+      })
+        .then(this._handleResponse);
+    };
 
-  //#endregion
+    //#endregion
 
-}
+  }
 
 const mainApi = new MoviesApi(
-  "https://api.nomoreparties.co/beatfilm-movies",
+  moviesApiURL,
   {
     "Content-Type": "application/json"
   }

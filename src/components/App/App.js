@@ -17,13 +17,12 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import InfoPopup from '../InfoPopup/InfoPopup';
 
-import { cardArray, savedCardArray } from '../../utils/data';
-
 function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({ id: "", name: "", email: "" });
   const [isLoading, setIsLoading] = React.useState(false);
   const [movieList, setMovieList] = React.useState([]);
+  const [savedMovieList, setSavedMovieList] = React.useState([]);
   const [isInfoPopupOpen, setIsInfoPopupOpen] = React.useState(false);
   const [infoPopupData, setInfoPopupData] = React.useState({ text: "Информационное окно", isError: false });
 
@@ -224,8 +223,7 @@ function App() {
               isLoggedIn={isLoggedIn}
               isLoading={isLoading}
               handleSubmitSearch={handleSubmitSearch}
-              movieList={movieList}
-              cards={cardArray}
+              cards={movieList}
               onCardLike={handleCardLike}
               loadMoreMovies={loadMoreMovies}
             />
@@ -240,7 +238,7 @@ function App() {
                 isLoggedIn={isLoggedIn}
                 isLoading={isLoading}
                 handleSubmitSearch={handleSubmitSearch}
-                cards={savedCardArray}
+                cards={savedMovieList}
                 onCardLike={handleCardLike}
                 loadMoreMovies={loadMoreMovies}
               />

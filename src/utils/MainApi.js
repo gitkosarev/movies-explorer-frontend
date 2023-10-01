@@ -1,3 +1,5 @@
+import { mainApiURL } from './Consts.js';
+
 class MainApi {
   constructor(baseUrl, headers) {
     this._baseUrl = baseUrl;
@@ -79,7 +81,7 @@ class MainApi {
 
 
 
-  
+
 
 
 
@@ -147,7 +149,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi(
-  "https://api.diploma.nomoreparties.co",
+  mainApiURL,
   {
     "Content-Type": "application/json"
   }
