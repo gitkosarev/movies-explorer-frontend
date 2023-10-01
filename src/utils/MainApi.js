@@ -12,6 +12,35 @@ class MainApi {
     }
   };
 
+  //#region AUTH
+
+  signup(name, email, password) {
+    return fetch(`${this._baseUrl}/signup`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        name,
+        email,
+        password
+      })
+    })
+      .then(this._handleResponse);
+  };
+
+  signin(email, password) {
+    return fetch(`${this._baseUrl}/signin`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        password,
+        email
+      })
+    })
+      .then(this._handleResponse);
+  };
+
+  //#endregion
+
   //#region GET
 
   getUserInfo(token) {
@@ -42,6 +71,15 @@ class MainApi {
 
   //#endregion
 
+  //#region POST
+
+
+
+  //#endregion
+
+
+
+  
 
 
 

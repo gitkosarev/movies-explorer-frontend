@@ -31,6 +31,7 @@ function SearchForm({ handleSubmitSearch }) {
         action="#"
         method="post"
         autoComplete="off"
+        noValidate
       >
         <div className="search-line">
           <label htmlFor="searchLineInput" className="search-line__icon"></label>
@@ -42,8 +43,6 @@ function SearchForm({ handleSubmitSearch }) {
             name="search"
             required
             placeholder="Фильм"
-            minLength="2"
-            maxLength="150"
           />
           <button className="button search__submit" type="submit"></button>
         </div>

@@ -2,7 +2,7 @@ import './App.css';
 import React, { useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
-import auth from '../../utils/Auth.js';
+import moviesApi from '../../utils/MoviesApi.js';
 import mainApi from '../../utils/MainApi.js';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
@@ -23,6 +23,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({ id: "", name: "", email: "" });
   const [isLoading, setIsLoading] = React.useState(false);
+  const [movieList, setMovieList] = React.useState([]);
   const [isInfoPopupOpen, setIsInfoPopupOpen] = React.useState(false);
   const [infoPopupData, setInfoPopupData] = React.useState({ text: "Информационное окно", isError: false });
 
@@ -36,8 +37,20 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  function getMovieList() {
+    moviesApi.getMovies()
+      .then((response) => {
+        debugger
+        setMovieList(response);
+      })
+      .catch(error => {
+        console.error(error);
+        openInfoPopup("Произошла ошибка при загрузке списка фильмов. Попробуйте позднее еще раз.", true);
+      });
+  };
+
   function setUserInfo(token) {
-    auth.getUserInfo(token)
+    mainApi.getUserInfo(token)
       .then((response) => {
         onLoginSuccess(response);
       })
@@ -60,7 +73,7 @@ function App() {
 
   function onSignIn({ email, password }) {
     setIsLoading(true);
-    auth.signin(email, password)
+    mainApi.signin(email, password)
       .then((response) => {
         localStorage.setItem("jwt", response.token);
         setUserInfo(response.token);
@@ -82,7 +95,7 @@ function App() {
 
   function onSignUp({ name, email, password }) {
     setIsLoading(true);
-    auth.signup(name, email, password)
+    mainApi.signup(name, email, password)
       .then(() => {
         navigate("/signin");
       })
@@ -134,7 +147,11 @@ function App() {
   };
 
   function handleSubmitSearch(values) {
-    alert(`search_value: ${values.search}, search_option: ${values.isShortFilm}`);
+    if (!values.search || values.search === "") {
+      openInfoPopup("Нужно ввести ключевое слово.", true);
+    } else {
+      getMovieList();
+    }
   };
 
   function handleCardLike(card, isLiked, isSavedCardMode) {
@@ -204,6 +221,7 @@ function App() {
               isLoggedIn={isLoggedIn}
               isLoading={isLoading}
               handleSubmitSearch={handleSubmitSearch}
+              movieList={movieList}
               cards={cardArray}
               onCardLike={handleCardLike}
               loadMoreMovies={loadMoreMovies}
