@@ -54,6 +54,15 @@ class MainApi {
       .then(this._handleResponse);
   };
 
+  getSavedMovies(token) {
+    this._headers["Authorization"] = `Bearer ${token}`;
+    return fetch(`${this._baseUrl}/movies`, {
+      method: "GET",
+      headers: this._headers
+    })
+      .then(this._handleResponse);
+  };
+
   //#endregion
 
   //#region PATCH

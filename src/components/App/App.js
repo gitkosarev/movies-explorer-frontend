@@ -4,6 +4,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import moviesApi from '../../utils/MoviesApi.js';
 import mainApi from '../../utils/MainApi.js';
+import { imageServerURL } from '../../utils/Consts.js';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 
@@ -31,31 +32,33 @@ function App() {
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
-      setUserInfo(jwt);
+      initData(jwt);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function setUserInfo(token) {
-    mainApi.getUserInfo(token)
-      .then((response) => {
-        onLoginSuccess(response);
+  function initData(token) {
+    Promise.all([mainApi.getUserInfo(token), mainApi.getSavedMovies(token)])
+      .then(([user, savedMovies]) => {
+        setCurrentUser({
+          id: user._id,
+          name: user.name,
+          email: user.email
+        });
+        setSavedMovieList(savedMovies.map((item) => {
+          item.id = item.movieId;
+          item.imageURL = item.image;
+          return item;
+        }));
+        
+        setIsLoggedIn(true);
+        navigate("/movies", { replace: true });
       })
       .catch(error => {
         localStorage.removeItem("jwt");
         console.error(error);
-        openInfoPopup("Произошла ошибка при загрузке профиля.", true);
+        openInfoPopup("Произошла ошибка при загрузке данных пользователя.", true);
       });
-  };
-
-  function onLoginSuccess(user) {
-    setIsLoggedIn(true);
-    setCurrentUser({
-      id: user._id,
-      name: user.name,
-      email: user.email
-    });
-    navigate("/movies", { replace: true });
   };
 
   function onSignIn({ email, password }) {
@@ -63,7 +66,7 @@ function App() {
     mainApi.signin(email, password)
       .then((response) => {
         localStorage.setItem("jwt", response.token);
-        setUserInfo(response.token);
+        initData(response.token);
       })
       .catch(error => {
         console.error(error);
@@ -137,7 +140,10 @@ function App() {
     setIsLoading(true);
     moviesApi.getMovies()
       .then((response) => {
-        setMovieList(response);
+        setMovieList(response.map((item) => {
+          item.imageURL = `${imageServerURL}${item?.image?.url}`;
+          return item;
+        }));
       })
       .catch(error => {
         console.error(error);
