@@ -14,13 +14,19 @@ function Movies({ isLoggedIn, isLoading, handleSubmitSearch, movieList, cards, o
       <Header isLoggedIn={isLoggedIn} isThemeGrey={false} />
       <main className="movies">
         <SearchForm handleSubmitSearch={handleSubmitSearch} />
-        <MoviesCardList
-          cards={cards}
-          onCardLike={onCardLike}
-          loadMoreMovies={loadMoreMovies}
-          isSavedCardMode={false}
-        />
-        <Preloader isActive={isLoading} />
+        {
+          isLoading && <Preloader isActive={isLoading} />
+        }
+        {
+          !isLoading
+          &&
+          <MoviesCardList
+            cards={[]}
+            onCardLike={onCardLike}
+            loadMoreMovies={loadMoreMovies}
+            isSavedCardMode={false}
+          />
+        }
       </main>
       <Footer />
     </>

@@ -37,18 +37,6 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function getMovieList() {
-    moviesApi.getMovies()
-      .then((response) => {
-        debugger
-        setMovieList(response);
-      })
-      .catch(error => {
-        console.error(error);
-        openInfoPopup("Произошла ошибка при загрузке списка фильмов. Попробуйте позднее еще раз.", true);
-      });
-  };
-
   function setUserInfo(token) {
     mainApi.getUserInfo(token)
       .then((response) => {
@@ -140,6 +128,21 @@ function App() {
         } else {
           openInfoPopup("При сохранении профиля произошла ошибка.", true);
         }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  function getMovieList() {
+    setIsLoading(true);
+    moviesApi.getMovies()
+      .then((response) => {
+        setMovieList(response);
+      })
+      .catch(error => {
+        console.error(error);
+        openInfoPopup("Произошла ошибка при загрузке списка фильмов. Попробуйте позднее еще раз.", true);
       })
       .finally(() => {
         setIsLoading(false);
