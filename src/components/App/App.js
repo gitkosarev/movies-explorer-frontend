@@ -106,6 +106,8 @@ function App() {
     if (isLoggedIn) {
       localStorage.removeItem("jwt");
       setIsLoggedIn(false);
+      setMovieList([]);
+      setSavedMovieList([]);
       navigate("/", { replace: true });
     }
   };
@@ -168,7 +170,14 @@ function App() {
     const token = localStorage.getItem("jwt");
     mainApi.saveMovie(token, movie)
       .then((response) => {
+        movie._id = response._id;
         setSavedMovieList([movie, ...savedMovieList]);
+        setMovieList(movieList.map((item) => {
+          if (item.id === movie.id) {
+            item.isLiked = true;
+          }
+          return item;
+        }));
       })
       .catch(error => {
         console.error(error);
@@ -176,14 +185,39 @@ function App() {
       });
   };
 
-  function handleCardLike(card, isLiked, isSavedCardMode) {
+  function removeMovieFromSaved(movie) {
+    const token = localStorage.getItem("jwt");
+    let movieId;
+    if (movie._id) {
+      movieId = movie._id;
+    } else {
+      const savedMovie = savedMovieList.find((x => x.id === movie.id));
+      movieId = savedMovie._id;
+    }
+    mainApi.deleteMovie(token, movieId)
+      .then((response) => {
+        setSavedMovieList(savedMovieList.filter((item) => item._id !== movieId));
+        setMovieList(movieList.map((item) => {
+          if (item.id === movie.id) {
+            item.isLiked = false;
+          }
+          return item;
+        }));
+      })
+      .catch(error => {
+        console.error(error);
+        openInfoPopup("Произошла ошибка при удалении сохраненного фильма. Попробуйте позднее еще раз.", true);
+      });
+  };
+
+  function handleCardLike(movie, isLiked, isSavedCardMode) {
     if (isSavedCardMode) {
-      alert("card DELETED");
+      removeMovieFromSaved(movie);
     } else {
       if (isLiked) {
-        addMovieToSaved(card);
+        addMovieToSaved(movie);
       } else {
-        alert("card DISLIKED!");
+        removeMovieFromSaved(movie);
       }
     }
   };
