@@ -50,7 +50,7 @@ function App() {
           item.imageURL = item.image;
           return item;
         }));
-        
+
         setIsLoggedIn(true);
         navigate("/movies", { replace: true });
       })
@@ -142,6 +142,8 @@ function App() {
       .then((response) => {
         setMovieList(response.map((item) => {
           item.imageURL = `${imageServerURL}${item?.image?.url}`;
+          item.isLiked = savedMovieList.some((x => x.id === item.id));
+          item.thumbnail = `${imageServerURL}${item?.image?.formats?.thumbnail?.url}`;
           return item;
         }));
       })
@@ -162,12 +164,24 @@ function App() {
     }
   };
 
+  function addMovieToSaved(movie) {
+    const token = localStorage.getItem("jwt");
+    mainApi.saveMovie(token, movie)
+      .then((response) => {
+        setSavedMovieList([movie, ...savedMovieList]);
+      })
+      .catch(error => {
+        console.error(error);
+        openInfoPopup("Произошла ошибка при сохранении фильма. Попробуйте позднее еще раз.", true);
+      });
+  };
+
   function handleCardLike(card, isLiked, isSavedCardMode) {
     if (isSavedCardMode) {
       alert("card DELETED");
     } else {
       if (isLiked) {
-        alert("card LIKED!");
+        addMovieToSaved(card);
       } else {
         alert("card DISLIKED!");
       }

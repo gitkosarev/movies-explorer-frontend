@@ -84,77 +84,42 @@ class MainApi {
 
   //#region POST
 
-
-
-  //#endregion
-
-
-
-
-
-
-
-
-  getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
-      method: "GET",
-      headers: this._headers
-    })
-      .then(this._handleResponse);
-  };
-
-  saveCard(name, link) {
-    return fetch(`${this._baseUrl}/cards`, {
+  saveMovie(token, movie) {
+    this._headers["Authorization"] = `Bearer ${token}`;
+    return fetch(`${this._baseUrl}/movies`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        name,
-        link
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: movie.imageURL,
+        trailerLink: movie.trailerLink,
+        thumbnail: movie.thumbnail,
+        movieId: movie.id,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN
       })
     })
       .then(this._handleResponse);
   };
 
-  deleteCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+  //#endregion
+
+  //#region DELETE
+
+  deleteMovie(token, movieId) {
+    this._headers["Authorization"] = `Bearer ${token}`;
+    return fetch(`${this._baseUrl}/movies/${movieId}`, {
       method: "DELETE",
       headers: this._headers
     })
       .then(this._handleResponse);
   };
 
-  toggleLike(cardId, isLiked) {
-    if (isLiked) { return this.deleteLike(cardId); }
-    else { return this.putLike(cardId) }
-  };
-
-  putLike(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-      method: "PUT",
-      headers: this._headers
-    })
-      .then(this._handleResponse);
-  };
-
-  deleteLike(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-      method: "DELETE",
-      headers: this._headers
-    })
-      .then(this._handleResponse);
-  };
-
-  updateAvatar(link) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
-      method: "PATCH",
-      headers: this._headers,
-      body: JSON.stringify({
-        avatar: link
-      })
-    })
-      .then(this._handleResponse);
-  };
-
+  //#endregion
 }
 
 const mainApi = new MainApi(

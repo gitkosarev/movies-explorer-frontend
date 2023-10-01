@@ -5,9 +5,7 @@ import './MoviesCard.css';
 import { getFormattedDuration } from '../../utils/DurationCalculator.js';
 
 function MoviesCard({ card, onCardLike, isSavedCardMode }) {
-  // заменить на логику лайк
-  /* const isLiked = card.likes.some((x) => x === currentUser?._id); */
-  const isLiked = false;
+  const [isLiked, setIsLiked] = React.useState(card.isLiked);
   let likeButtonClass = `button card__like-button${isLiked ? " card__like-button_active" : ""}`;
   if (isSavedCardMode) {
     likeButtonClass = `button card__like-button card__like-button_mode_delete`;
@@ -15,6 +13,7 @@ function MoviesCard({ card, onCardLike, isSavedCardMode }) {
 
   function handleLikeClick() {
     onCardLike(card, !isLiked, isSavedCardMode);
+    setIsLiked(!isLiked);
   };
 
   return (
