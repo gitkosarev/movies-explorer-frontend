@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import moviesApi from '../../utils/MoviesApi.js';
@@ -19,13 +19,15 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import InfoPopup from '../InfoPopup/InfoPopup';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [currentUser, setCurrentUser] = React.useState({ id: "", name: "", email: "" });
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [movieList, setMovieList] = React.useState([]);
-  const [savedMovieList, setSavedMovieList] = React.useState([]);
-  const [isInfoPopupOpen, setIsInfoPopupOpen] = React.useState(false);
-  const [infoPopupData, setInfoPopupData] = React.useState({ text: "Информационное окно", isError: false });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState({ id: "", name: "", email: "" });
+  const [isLoading, setIsLoading] = useState(false);
+  const [movieList, setMovieList] = useState([]);
+  const [savedMovieList, setSavedMovieList] = useState([]);
+  const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false);
+  const [infoPopupData, setInfoPopupData] = useState({ text: "Информационное окно", isError: false });
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isResizeTimeout, setIsResizeTimeout] = useState(false);
 
   const navigate = useNavigate();
 
@@ -34,7 +36,24 @@ function App() {
     if (jwt) {
       initData(jwt);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const onResize = (event) => {
+    if (isResizeTimeout) { return; }
+    setIsResizeTimeout(true);
+    setWindowWidth(event.target.window.innerWidth);
+    setTimeout(() => {
+      setIsResizeTimeout(false);
+    }, 400);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', onResize);
+    return () => {
+      window.removeEventListener('resize', onResize);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function initData(token) {
@@ -222,10 +241,6 @@ function App() {
     }
   };
 
-  function loadMoreMovies() {
-    alert("load more movies clicked!");
-  };
-
   function openInfoPopup(text, isError) {
     setInfoPopupData({ text, isError });
     setIsInfoPopupOpen(true);
@@ -279,7 +294,7 @@ function App() {
               handleSubmitSearch={handleSubmitSearch}
               cards={movieList}
               onCardLike={handleCardLike}
-              loadMoreMovies={loadMoreMovies}
+              windowWidth={windowWidth}
             />
           }
         />
@@ -294,7 +309,7 @@ function App() {
                 handleSubmitSearch={handleSubmitSearch}
                 cards={savedMovieList}
                 onCardLike={handleCardLike}
-                loadMoreMovies={loadMoreMovies}
+                windowWidth={windowWidth}
               />
             </>
           }

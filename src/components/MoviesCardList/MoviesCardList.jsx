@@ -4,7 +4,7 @@ import './MoviesCardList.css';
 
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ cards, onCardLike, loadMoreMovies, isSavedCardMode }) {
+function MoviesCardList({ cards, onCardLike, loadMoreMovies, isSavedCardMode, isLoadMoreVisible }) {
   function handleLoadMoreClick() {
     loadMoreMovies();
   };
@@ -26,7 +26,7 @@ function MoviesCardList({ cards, onCardLike, loadMoreMovies, isSavedCardMode }) 
               ))}
             </ul>
             {
-              !isSavedCardMode
+              !isSavedCardMode && isLoadMoreVisible
               &&
               <button className="button movies-list__load" onClick={handleLoadMoreClick} type="button">Ещё</button>
             }

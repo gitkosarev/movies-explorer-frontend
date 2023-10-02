@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import './Movies.css';
 
@@ -8,7 +8,34 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import Preloader from '../Preloader/Preloader';
 
-function Movies({ isLoggedIn, isLoading, handleSubmitSearch, cards, onCardLike, loadMoreMovies }) {
+function Movies({ isLoggedIn, isLoading, handleSubmitSearch, cards, onCardLike, windowWidth }) {
+  const [filteredCards, setFilteredCards] = useState([]);
+  const [countInView, setCountInView] = useState(0);
+
+  useEffect(() => {
+    if (windowWidth >= 1280) {
+      setCountInView(16);
+    } else if (windowWidth < 1280 && windowWidth >= 768) {
+      setCountInView(8);
+    } else {
+      setCountInView(5);
+    }
+  }, [windowWidth]);
+
+  useEffect(() => {
+    setFilteredCards(cards.slice(0, countInView));
+  }, [cards, countInView]);
+
+  function loadMoreMovies() {
+    if (windowWidth >= 1280) {
+      setCountInView(countInView + 4);
+    } else if (windowWidth < 1280 && windowWidth >= 768) {
+      setCountInView(countInView + 2);
+    } else {
+      setCountInView(countInView + 2);
+    }
+  };
+
   return (
     <>
       <Header isLoggedIn={isLoggedIn} isThemeGrey={false} />
@@ -21,10 +48,11 @@ function Movies({ isLoggedIn, isLoading, handleSubmitSearch, cards, onCardLike, 
           !isLoading
           &&
           <MoviesCardList
-            cards={cards}
+            cards={filteredCards}
             onCardLike={onCardLike}
             loadMoreMovies={loadMoreMovies}
             isSavedCardMode={false}
+            isLoadMoreVisible={cards.length > filteredCards.length}
           />
         }
       </main>

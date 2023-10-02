@@ -8,7 +8,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import Preloader from '../Preloader/Preloader';
 
-function SavedMovies({ isLoggedIn, isLoading, handleSubmitSearch, cards, onCardLike, loadMoreMovies }) {
+function SavedMovies({ isLoggedIn, isLoading, handleSubmitSearch, cards, onCardLike, windowWidth }) {
   return (
     <>
       <Header isLoggedIn={isLoggedIn} isThemeGrey={false} />
@@ -23,8 +23,8 @@ function SavedMovies({ isLoggedIn, isLoading, handleSubmitSearch, cards, onCardL
           <MoviesCardList
             cards={cards}
             onCardLike={onCardLike}
-            loadMoreMovies={loadMoreMovies}
             isSavedCardMode={true}
+            isLoadMoreVisible={false}
           />
         }
       </main>
