@@ -2,6 +2,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useSaveSearch } from '../../hooks/useSaveSearch';
+import { useTokenStorage } from '../../hooks/useTokenStorage';
 
 import moviesApi from '../../utils/MoviesApi.js';
 import mainApi from '../../utils/MainApi.js';
@@ -33,14 +34,13 @@ function App() {
   const [isResizeTimeout, setIsResizeTimeout] = useState(false);
 
   const [storedSearch, saveSearch, removeSavedSearch] = useSaveSearch("searchResults");
-  /* const [token, saveToken, removeToken ] = useStorage("jwt"); */
+  const [token, saveToken, removeToken ] = useTokenStorage("jwt");
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
-    if (jwt) {
-      initData(jwt);
+    if (token) {
+      initData(token);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -75,7 +75,7 @@ function App() {
     } else {
       setFilteredMovieList(movieList);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieList]);
 
   useEffect(() => {
@@ -101,7 +101,7 @@ function App() {
         navigate("/movies", { replace: true });
       })
       .catch(error => {
-        localStorage.removeItem("jwt");
+        removeToken();
         console.error(error);
         openInfoPopup("Произошла ошибка при загрузке данных пользователя.", true);
       });
@@ -117,7 +117,7 @@ function App() {
     setIsLoading(true);
     mainApi.signin(email, password)
       .then((response) => {
-        localStorage.setItem("jwt", response.token);
+        saveToken(response.token);
         initData(response.token);
       })
       .catch(error => {
@@ -156,7 +156,7 @@ function App() {
 
   function onSignOut() {
     if (isLoggedIn) {
-      localStorage.removeItem("jwt");
+      removeToken();
       removeSavedSearch();
       setIsLoggedIn(false);
       setMovieList([]);
@@ -168,7 +168,6 @@ function App() {
   };
 
   function onEditProfile(user) {
-    const token = localStorage.getItem("jwt");
     setIsLoading(true);
     mainApi.updateProfile(token, user.name, user.email)
       .then((response) => {
@@ -259,7 +258,6 @@ function App() {
   };
 
   function addMovieToSaved(movie) {
-    const token = localStorage.getItem("jwt");
     mainApi.saveMovie(token, movie)
       .then((response) => {
         movie._id = response._id;
@@ -283,7 +281,6 @@ function App() {
   };
 
   function removeMovieFromSaved(movie) {
-    const token = localStorage.getItem("jwt");
     let movieId;
     if (movie._id) {
       movieId = movie._id;
