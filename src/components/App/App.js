@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import { useSaveSearch } from '../../hooks/useSaveSearch';
 
 import moviesApi from '../../utils/MoviesApi.js';
 import mainApi from '../../utils/MainApi.js';
@@ -23,11 +24,16 @@ function App() {
   const [currentUser, setCurrentUser] = useState({ id: "", name: "", email: "" });
   const [isLoading, setIsLoading] = useState(false);
   const [movieList, setMovieList] = useState([]);
+  const [filteredMovieList, setFilteredMovieList] = useState([]);
   const [savedMovieList, setSavedMovieList] = useState([]);
+  const [filteredSavedMovieList, setFilteredSavedMovieList] = useState([]);
   const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false);
   const [infoPopupData, setInfoPopupData] = useState({ text: "Информационное окно", isError: false });
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isResizeTimeout, setIsResizeTimeout] = useState(false);
+
+  const [storedSearch, saveSearch, removeSavedSearch] = useSaveSearch("searchResults");
+  /* const [token, saveToken, removeToken ] = useStorage("jwt"); */
 
   const navigate = useNavigate();
 
@@ -36,7 +42,7 @@ function App() {
     if (jwt) {
       initData(jwt);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onResize = (event) => {
@@ -53,8 +59,29 @@ function App() {
     return () => {
       window.removeEventListener('resize', onResize);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (movieList.length === 0) { return; }
+    if (storedSearch) {
+      let filteredArray = filterMoviesByName(movieList, storedSearch.values.search);
+      if (storedSearch.values.isShortFilm) {
+        filteredArray = filterMoviesByShortFilms(filteredArray);
+      }
+      storedSearch.movies = filteredArray;
+      saveSearch({ ...storedSearch });
+      setFilteredMovieList(filteredArray);
+    } else {
+      setFilteredMovieList(movieList);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [movieList]);
+
+  useEffect(() => {
+    setFilteredSavedMovieList(savedMovieList);
+  }, [savedMovieList]);
+
 
   function initData(token) {
     Promise.all([mainApi.getUserInfo(token), mainApi.getSavedMovies(token)])
@@ -69,7 +96,7 @@ function App() {
           item.imageURL = item.image;
           return item;
         }));
-
+        restoreSearchResults();
         setIsLoggedIn(true);
         navigate("/movies", { replace: true });
       })
@@ -78,6 +105,12 @@ function App() {
         console.error(error);
         openInfoPopup("Произошла ошибка при загрузке данных пользователя.", true);
       });
+  };
+
+  function restoreSearchResults() {
+    if (storedSearch && storedSearch.movies.length > 0) {
+      setFilteredMovieList(storedSearch.movies);
+    }
   };
 
   function onSignIn({ email, password }) {
@@ -124,9 +157,12 @@ function App() {
   function onSignOut() {
     if (isLoggedIn) {
       localStorage.removeItem("jwt");
+      removeSavedSearch();
       setIsLoggedIn(false);
       setMovieList([]);
+      setFilteredMovieList([]);
       setSavedMovieList([]);
+      setFilteredSavedMovieList([]);
       navigate("/", { replace: true });
     }
   };
@@ -157,7 +193,7 @@ function App() {
       });
   };
 
-  function getMovieList() {
+  function loadMovieList() {
     setIsLoading(true);
     moviesApi.getMovies()
       .then((response) => {
@@ -177,11 +213,48 @@ function App() {
       });
   };
 
-  function handleSubmitSearch(values) {
+  function filterSavedMovieList(values) {
+    let filteredArray = filterMoviesByName(savedMovieList, values.search);
+    if (values.isShortFilm) {
+      filteredArray = filterMoviesByShortFilms(filteredArray);
+    }
+    setFilteredSavedMovieList(filteredArray);
+  };
+
+  function filterMoviesByName(array, value) {
+    return array.filter((item) => {
+      return item.nameRU.toLowerCase().includes(value.toLowerCase())
+        || item.nameEN.toLowerCase().includes(value.toLowerCase());
+    });
+  };
+
+  function filterMoviesByShortFilms(array) {
+    return array.filter((item) => item.duration <= 40);
+  };
+
+  function searchMovies(values) {
     if (!values.search || values.search === "") {
       openInfoPopup("Нужно ввести ключевое слово.", true);
     } else {
-      getMovieList();
+      if (values.isSavedCardMode) {
+        filterSavedMovieList(values);
+      } else {
+        const searchResults = {
+          values,
+          movies: []
+        };
+        saveSearch(searchResults);
+        loadMovieList();
+      }
+    }
+  };
+
+  function onSearchReset(isSavedCardMode) {
+    if (isSavedCardMode) {
+      setFilteredSavedMovieList(savedMovieList);
+    } else {
+      removeSavedSearch();
+      setFilteredMovieList([]);
     }
   };
 
@@ -191,12 +264,17 @@ function App() {
       .then((response) => {
         movie._id = response._id;
         setSavedMovieList([movie, ...savedMovieList]);
-        setMovieList(movieList.map((item) => {
+        const updatedList = filteredMovieList.map((item) => {
           if (item.id === movie.id) {
             item.isLiked = true;
           }
           return item;
-        }));
+        });
+        setFilteredMovieList(updatedList);
+        saveSearch({
+          ...storedSearch,
+          movies: updatedList
+        });
       })
       .catch(error => {
         console.error(error);
@@ -216,12 +294,17 @@ function App() {
     mainApi.deleteMovie(token, movieId)
       .then((response) => {
         setSavedMovieList(savedMovieList.filter((item) => item._id !== movieId));
-        setMovieList(movieList.map((item) => {
+        const updatedList = filteredMovieList.map((item) => {
           if (item.id === movie.id) {
             item.isLiked = false;
           }
           return item;
-        }));
+        });
+        setFilteredMovieList(updatedList);
+        saveSearch({
+          ...storedSearch,
+          movies: updatedList
+        });
       })
       .catch(error => {
         console.error(error);
@@ -291,10 +374,11 @@ function App() {
               component={Movies}
               isLoggedIn={isLoggedIn}
               isLoading={isLoading}
-              handleSubmitSearch={handleSubmitSearch}
-              cards={movieList}
+              handleSubmitSearch={searchMovies}
+              cards={filteredMovieList}
               onCardLike={handleCardLike}
               windowWidth={windowWidth}
+              resetSearch={onSearchReset}
             />
           }
         />
@@ -306,10 +390,10 @@ function App() {
                 component={SavedMovies}
                 isLoggedIn={isLoggedIn}
                 isLoading={isLoading}
-                handleSubmitSearch={handleSubmitSearch}
-                cards={savedMovieList}
+                handleSubmitSearch={searchMovies}
+                cards={filteredSavedMovieList}
                 onCardLike={handleCardLike}
-                windowWidth={windowWidth}
+                resetSearch={onSearchReset}
               />
             </>
           }

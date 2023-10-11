@@ -8,7 +8,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import Preloader from '../Preloader/Preloader';
 
-function Movies({ isLoggedIn, isLoading, handleSubmitSearch, cards, onCardLike, windowWidth }) {
+function Movies({ isLoggedIn, isLoading, handleSubmitSearch, cards, onCardLike, windowWidth, resetSearch }) {
   const [filteredCards, setFilteredCards] = useState([]);
   const [countInView, setCountInView] = useState(0);
 
@@ -23,7 +23,11 @@ function Movies({ isLoggedIn, isLoading, handleSubmitSearch, cards, onCardLike, 
   }, [windowWidth]);
 
   useEffect(() => {
-    setFilteredCards(cards.slice(0, countInView));
+    if (cards.length > 0) {
+      setFilteredCards(cards.slice(0, countInView));
+    } else {
+      setFilteredCards(cards);
+    }
   }, [cards, countInView]);
 
   function loadMoreMovies() {
@@ -40,7 +44,11 @@ function Movies({ isLoggedIn, isLoading, handleSubmitSearch, cards, onCardLike, 
     <>
       <Header isLoggedIn={isLoggedIn} isThemeGrey={false} />
       <main className="movies">
-        <SearchForm handleSubmitSearch={handleSubmitSearch} />
+        <SearchForm
+          isSavedCardMode={false}
+          handleSubmitSearch={handleSubmitSearch}
+          onReset={resetSearch}
+        />
         {
           isLoading && <Preloader isActive={isLoading} />
         }

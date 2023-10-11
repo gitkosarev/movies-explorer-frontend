@@ -1,13 +1,33 @@
-import React, { useState } from 'react';
+import React, { memo, useState, useEffect, useRef } from 'react';
 
 import './SearchForm.css';
 
-function SearchForm({ handleSubmitSearch }) {
-  const [value, setValue] = useState("");
+function SearchForm({ isSavedCardMode, handleSubmitSearch, onReset }) {
+  const [search, setSearch] = useState("");
   const [isShortFilm, setIsShortFilm] = useState(false);
 
+  const isShortInputElement = useRef();
+
+  useEffect(() => {
+    if (isSavedCardMode) { return; }
+    const searchValues = JSON.parse(localStorage.getItem("searchResults"))?.values;
+    if (searchValues) {
+      if (searchValues.search !== "") { setSearch(searchValues.search); }
+      if (searchValues.isShortFilm) {
+        setIsShortFilm(true);
+        isShortInputElement.current.checked = true;
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   function handleSearchChange(e) {
-    setValue(e.target.value);
+    setSearch(e.target.value);
+    if (e.target.value === "") {
+      setIsShortFilm(false);
+      e.target.closest("form").reset();
+      onReset(isSavedCardMode);
+    }
   };
 
   function handleIsShortFilmChange(e) {
@@ -17,8 +37,9 @@ function SearchForm({ handleSubmitSearch }) {
   function handleSubmit(e) {
     e.preventDefault();
     handleSubmitSearch({
-      search: value,
-      isShortFilm: isShortFilm
+      isSavedCardMode,
+      search,
+      isShortFilm
     });
   };
 
@@ -36,7 +57,7 @@ function SearchForm({ handleSubmitSearch }) {
         <div className="search-line">
           <label htmlFor="searchLineInput" className="search-line__icon"></label>
           <input className="search-line__input"
-            value={value}
+            value={search}
             onChange={handleSearchChange}
             id="searchLineInput"
             type="search"
@@ -50,6 +71,7 @@ function SearchForm({ handleSubmitSearch }) {
           <label htmlFor="isShortFilm" className="search-extra__label">
             <input className="search-extra__input search-extra__input_el_checkbox"
               value={isShortFilm}
+              ref={isShortInputElement}
               onChange={handleIsShortFilmChange}
               id="isShortFilm"
               type="checkbox"
@@ -64,4 +86,4 @@ function SearchForm({ handleSubmitSearch }) {
   )
 }
 
-export default SearchForm;
+export default memo(SearchForm);

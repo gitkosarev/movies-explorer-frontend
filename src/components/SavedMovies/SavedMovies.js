@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import './SavedMovies.css';
 
@@ -8,12 +8,21 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import Preloader from '../Preloader/Preloader';
 
-function SavedMovies({ isLoggedIn, isLoading, handleSubmitSearch, cards, onCardLike, windowWidth }) {
+function SavedMovies({ isLoggedIn, isLoading, handleSubmitSearch, cards, onCardLike, resetSearch }) {
+  useEffect(() => {
+    return resetSearch(true);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <Header isLoggedIn={isLoggedIn} isThemeGrey={false} />
       <main className="saved-movies">
-        <SearchForm handleSubmitSearch={handleSubmitSearch} />
+        <SearchForm
+          isSavedCardMode={true}
+          handleSubmitSearch={handleSubmitSearch}
+          onReset={resetSearch}
+        />
         {
           isLoading && <Preloader isActive={isLoading} />
         }
