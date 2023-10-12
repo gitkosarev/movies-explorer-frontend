@@ -34,7 +34,7 @@ function App() {
   const [isResizeTimeout, setIsResizeTimeout] = useState(false);
 
   const [storedSearch, saveSearch, removeSavedSearch] = useSaveSearch("searchResults");
-  const [token, saveToken, removeToken ] = useTokenStorage("jwt");
+  const [token, saveToken, removeToken] = useTokenStorage("jwt");
 
   const navigate = useNavigate();
 
@@ -65,13 +65,7 @@ function App() {
   useEffect(() => {
     if (movieList.length === 0) { return; }
     if (storedSearch) {
-      let filteredArray = filterMoviesByName(movieList, storedSearch.values.search);
-      if (storedSearch.values.isShortFilm) {
-        filteredArray = filterMoviesByShortFilms(filteredArray);
-      }
-      storedSearch.movies = filteredArray;
-      saveSearch({ ...storedSearch });
-      setFilteredMovieList(filteredArray);
+      filterMovieList(storedSearch.values);
     } else {
       setFilteredMovieList(movieList);
     }
@@ -220,6 +214,18 @@ function App() {
     setFilteredSavedMovieList(filteredArray);
   };
 
+  function filterMovieList(values) {
+    let filteredArray = filterMoviesByName(movieList, values.search);
+    if (values.isShortFilm) {
+      filteredArray = filterMoviesByShortFilms(filteredArray);
+    }
+    saveSearch({
+      values: values,
+      movies: filteredArray
+    });
+    setFilteredMovieList(filteredArray);
+  };
+
   function filterMoviesByName(array, value) {
     return array.filter((item) => {
       return item.nameRU.toLowerCase().includes(value.toLowerCase())
@@ -244,6 +250,24 @@ function App() {
         };
         saveSearch(searchResults);
         loadMovieList();
+      }
+    }
+  };
+
+  function handleIsShortClicked(values) {
+    if (!values.search || values.search === "") { return; }
+    if (values.isSavedCardMode) {
+      filterSavedMovieList(values);
+    } else {
+      if (movieList.length === 0) {
+        const searchResults = {
+          values,
+          movies: []
+        };
+        saveSearch(searchResults);
+        loadMovieList();
+      } else {
+        filterMovieList(values);
       }
     }
   };
@@ -372,6 +396,7 @@ function App() {
               isLoggedIn={isLoggedIn}
               isLoading={isLoading}
               handleSubmitSearch={searchMovies}
+              onIsShortClicked={handleIsShortClicked}
               cards={filteredMovieList}
               onCardLike={handleCardLike}
               windowWidth={windowWidth}
@@ -388,6 +413,7 @@ function App() {
                 isLoggedIn={isLoggedIn}
                 isLoading={isLoading}
                 handleSubmitSearch={searchMovies}
+                onIsShortClicked={handleIsShortClicked}
                 cards={filteredSavedMovieList}
                 onCardLike={handleCardLike}
                 resetSearch={onSearchReset}

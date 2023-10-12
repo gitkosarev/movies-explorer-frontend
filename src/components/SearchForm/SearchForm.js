@@ -2,7 +2,7 @@ import React, { memo, useState, useEffect, useRef } from 'react';
 
 import './SearchForm.css';
 
-function SearchForm({ isSavedCardMode, handleSubmitSearch, onReset }) {
+function SearchForm({ isSavedCardMode, handleSubmitSearch, onIsShortClicked, onReset }) {
   const [search, setSearch] = useState("");
   const [isShortFilm, setIsShortFilm] = useState(false);
 
@@ -32,6 +32,11 @@ function SearchForm({ isSavedCardMode, handleSubmitSearch, onReset }) {
 
   function handleIsShortFilmChange(e) {
     setIsShortFilm(e.target.checked);
+    onIsShortClicked({
+      isSavedCardMode,
+      search,
+      isShortFilm: e.target.checked
+    });
   };
 
   function handleSubmit(e) {
