@@ -36,6 +36,6 @@ function Header({ isLoggedIn, isThemeGrey }) {
       }
     </header>
   );
-}
+};
 
-export default Header;
+export default React.memo(Header);
