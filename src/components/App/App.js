@@ -95,7 +95,7 @@ function App() {
         navigate("/movies", { replace: true });
       })
       .catch(error => {
-        removeToken();
+        signOut();
         console.error(error);
         openInfoPopup("Произошла ошибка при загрузке данных пользователя.", true);
       });
@@ -107,7 +107,7 @@ function App() {
     }
   };
 
-  function onSignIn({ email, password }) {
+  function signIn({ email, password }) {
     setIsLoading(true);
     mainApi.signin(email, password)
       .then((response) => {
@@ -129,11 +129,11 @@ function App() {
       });
   };
 
-  function onSignUp({ name, email, password }) {
+  function signUp({ name, email, password }) {
     setIsLoading(true);
     mainApi.signup(name, email, password)
       .then(() => {
-        navigate("/signin");
+        signIn({email, password});
       })
       .catch(error => {
         console.error(error);
@@ -148,17 +148,15 @@ function App() {
       });
   };
 
-  function onSignOut() {
-    if (isLoggedIn) {
-      removeToken();
-      removeSavedSearch();
-      setIsLoggedIn(false);
-      setMovieList([]);
-      setFilteredMovieList([]);
-      setSavedMovieList([]);
-      setFilteredSavedMovieList([]);
-      navigate("/", { replace: true });
-    }
+  function signOut() {
+    removeToken();
+    removeSavedSearch();
+    setIsLoggedIn(false);
+    setMovieList([]);
+    setFilteredMovieList([]);
+    setSavedMovieList([]);
+    setFilteredSavedMovieList([]);
+    navigate("/", { replace: true });
   };
 
   function onEditProfile(user) {
@@ -368,13 +366,13 @@ function App() {
         <Route
           path="/signup"
           element={
-            <Register onSignUp={onSignUp} />
+            <Register onSignUp={signUp} />
           }
         />
         <Route
           path="/signin"
           element={
-            <Login onSignIn={onSignIn} />
+            <Login onSignIn={signIn} />
           }
         />
         <Route
@@ -384,7 +382,7 @@ function App() {
               component={Profile}
               isLoggedIn={isLoggedIn}
               editProfile={onEditProfile}
-              signOut={onSignOut}
+              signOut={signOut}
             />
           }
         />
