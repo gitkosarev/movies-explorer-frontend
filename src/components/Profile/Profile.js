@@ -6,7 +6,7 @@ import './Profile.css';
 
 import Header from '../Header/Header';
 
-function Profile({ isLoggedIn, editProfile, signOut }) {
+function Profile({ isLoggedIn, editProfile, onSignOut }) {
   const currentUser = useContext(CurrentUserContext);
   const { values, handleChange, setDefaultValues, errors, isValid } = useFormWithValidation();
   const [isEdittingMode, setIsEdittingMode] = useState(false);
@@ -29,7 +29,11 @@ function Profile({ isLoggedIn, editProfile, signOut }) {
   };
 
   function handleSignOut() {
-    signOut();
+    onSignOut();
+  };
+
+  function getIsReallyValid() {
+    return isValid && (currentUser.name !== values.name || currentUser.email !== values.email);
   };
 
   return (
@@ -37,7 +41,7 @@ function Profile({ isLoggedIn, editProfile, signOut }) {
       <Header isLoggedIn={isLoggedIn} isThemeGrey={false} />
       <main className="profile">
         <section className="profile__section">
-          <h2 className="profile__title">{`Привет, ${values.name ? values.name : currentUser.name}!`}</h2>
+          <h2 className="profile__title">{`Привет, ${currentUser.name}!`}</h2>
           <form className="profile__form"
             onSubmit={handleSubmit}
             id="ProfileForm"
@@ -83,13 +87,12 @@ function Profile({ isLoggedIn, editProfile, signOut }) {
               />
             </div>
             <span className={`profile__form-input-error${errors.email ? " profile__form-input-error_active" : ""}`}>{errors?.email}</span>
-            {/* <span className={`profile__form-error${apiError ? " profile__form-error_active" : ""}`}>{apiError}</span> */}
             {
               isEdittingMode
               &&
-              <button className={`button button_color_blue profile__submit${isValid ? "" : " profile__submit_disabled"}`}
+              <button className={`button button_color_blue profile__submit${getIsReallyValid() ? "" : " profile__submit_disabled"}`}
                 type="submit"
-                disabled={!isValid}
+                disabled={!getIsReallyValid()}
               >Сохранить</button>
             }
           </form>
