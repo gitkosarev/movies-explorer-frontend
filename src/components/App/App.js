@@ -205,7 +205,10 @@ function App() {
   };
 
   function filterSavedMovieList(values) {
-    let filteredArray = filterMoviesByName(savedMovieList, values.search);
+    let filteredArray = savedMovieList;
+    if (values.search !== "") {
+      filteredArray = filterMoviesByName(filteredArray, values.search);
+    }
     if (values.isShortFilm) {
       filteredArray = filterMoviesByShortFilms(filteredArray);
     }
@@ -253,10 +256,10 @@ function App() {
   };
 
   function handleIsShortClicked(values) {
-    if (!values.search || values.search === "") { return; }
     if (values.isSavedCardMode) {
       filterSavedMovieList(values);
     } else {
+      if (!values.search || values.search === "") { return; }
       if (movieList.length === 0) {
         const searchResults = {
           values,
