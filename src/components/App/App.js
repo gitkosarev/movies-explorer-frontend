@@ -72,10 +72,6 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieList]);
 
-  useEffect(() => {
-    setFilteredSavedMovieList(savedMovieList);
-  }, [savedMovieList]);
-
 
   function initData(token) {
     Promise.all([mainApi.getUserInfo(token), mainApi.getSavedMovies(token)])
@@ -85,11 +81,13 @@ function App() {
           name: user.name,
           email: user.email
         });
-        setSavedMovieList(savedMovies.map((item) => {
+        const processedSavedMovies = savedMovies.map((item) => {
           item.id = item.movieId;
           item.imageURL = item.image;
           return item;
-        }));
+        });
+        setSavedMovieList(processedSavedMovies);
+        setFilteredSavedMovieList(processedSavedMovies);
         restoreSearchResults();
         setIsLoggedIn(true);
         navigate("/movies", { replace: true });
@@ -273,7 +271,7 @@ function App() {
     }
   };
 
-  function onSearchReset(isSavedCardMode) {
+  function resetSearch(isSavedCardMode) {
     if (isSavedCardMode) {
       setFilteredSavedMovieList(savedMovieList);
     } else {
@@ -286,7 +284,9 @@ function App() {
     mainApi.saveMovie(token, movie)
       .then((response) => {
         movie._id = response._id;
-        setSavedMovieList([movie, ...savedMovieList]);
+        const processedSavedMovieList = [movie, ...savedMovieList];
+        setSavedMovieList(processedSavedMovieList);
+        setFilteredSavedMovieList(processedSavedMovieList);
         const updatedList = filteredMovieList.map((item) => {
           if (item.id === movie.id) {
             item.isLiked = true;
@@ -306,16 +306,17 @@ function App() {
   };
 
   function removeMovieFromSaved(movie) {
-    let movieId;
+    let toBeRemovedMovieId;
     if (movie._id) {
-      movieId = movie._id;
+      toBeRemovedMovieId = movie._id;
     } else {
-      const savedMovie = savedMovieList.find((x => x.id === movie.id));
-      movieId = savedMovie._id;
+      const savedMovie = filteredSavedMovieList.find((x => x.id === movie.id));
+      toBeRemovedMovieId = savedMovie._id;
     }
-    mainApi.deleteMovie(token, movieId)
+    mainApi.deleteMovie(token, toBeRemovedMovieId)
       .then((response) => {
-        setSavedMovieList(savedMovieList.filter((item) => item._id !== movieId));
+        setSavedMovieList(savedMovieList.filter((item) => item._id !== toBeRemovedMovieId));
+        setFilteredSavedMovieList(filteredSavedMovieList.filter((item) => item._id !== toBeRemovedMovieId));
         const updatedList = filteredMovieList.map((item) => {
           if (item.id === movie.id) {
             item.isLiked = false;
@@ -401,7 +402,7 @@ function App() {
               cards={filteredMovieList}
               onCardLike={handleCardLike}
               windowWidth={windowWidth}
-              resetSearch={onSearchReset}
+              onSearchReset={resetSearch}
             />
           }
         />
@@ -417,7 +418,7 @@ function App() {
                 onIsShortClicked={handleIsShortClicked}
                 cards={filteredSavedMovieList}
                 onCardLike={handleCardLike}
-                resetSearch={onSearchReset}
+                onSearchReset={resetSearch}
               />
             </>
           }

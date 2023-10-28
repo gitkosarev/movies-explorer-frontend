@@ -8,9 +8,9 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import Preloader from '../Preloader/Preloader';
 
-function SavedMovies({ isLoggedIn, isLoading, handleSubmitSearch, onIsShortClicked, cards, onCardLike, resetSearch }) {
+function SavedMovies({ isLoggedIn, isLoading, handleSubmitSearch, onIsShortClicked, cards, onCardLike, onSearchReset }) {
   useEffect(() => {
-    return resetSearch(true);
+    return onSearchReset(true);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -22,7 +22,7 @@ function SavedMovies({ isLoggedIn, isLoading, handleSubmitSearch, onIsShortClick
           isSavedCardMode={true}
           handleSubmitSearch={handleSubmitSearch}
           onIsShortClicked={onIsShortClicked}
-          onReset={resetSearch}
+          onReset={onSearchReset}
         />
         {
           isLoading && <Preloader isActive={isLoading} />

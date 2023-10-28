@@ -89,6 +89,7 @@
 
 /* activate */
 .header__link_active {
+  font-size: 14px;
   font-weight: 500;
 }
 

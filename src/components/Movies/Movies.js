@@ -8,7 +8,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import Preloader from '../Preloader/Preloader';
 
-function Movies({ isLoggedIn, isLoading, handleSubmitSearch, onIsShortClicked, cards, onCardLike, windowWidth, resetSearch }) {
+function Movies({ isLoggedIn, isLoading, handleSubmitSearch, onIsShortClicked, cards, onCardLike, windowWidth, onSearchReset }) {
   const [filteredCards, setFilteredCards] = useState([]);
   const [countInView, setCountInView] = useState(0);
 
@@ -48,7 +48,7 @@ function Movies({ isLoggedIn, isLoading, handleSubmitSearch, onIsShortClicked, c
           isSavedCardMode={false}
           handleSubmitSearch={handleSubmitSearch}
           onIsShortClicked={onIsShortClicked}
-          onReset={resetSearch}
+          onReset={onSearchReset}
         />
         {
           isLoading && <Preloader isActive={isLoading} />
