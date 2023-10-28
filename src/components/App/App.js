@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { useSaveSearch } from '../../hooks/useSaveSearch';
 import { useTokenStorage } from '../../hooks/useTokenStorage';
 
@@ -21,7 +21,8 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import InfoPopup from '../InfoPopup/InfoPopup';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, saveToken, removeToken] = useTokenStorage("jwt");
+  const [isLoggedIn, setIsLoggedIn] = useState(token !== null);
   const [currentUser, setCurrentUser] = useState({ id: "", name: "", email: "" });
   const [isLoading, setIsLoading] = useState(false);
   const [movieList, setMovieList] = useState([]);
@@ -34,8 +35,8 @@ function App() {
   const [isResizeTimeout, setIsResizeTimeout] = useState(false);
 
   const [storedSearch, saveSearch, removeSavedSearch] = useSaveSearch("searchResults");
-  const [token, saveToken, removeToken] = useTokenStorage("jwt");
 
+  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -81,22 +82,33 @@ function App() {
           name: user.name,
           email: user.email
         });
-        const processedSavedMovies = savedMovies.map((item) => {
-          item.id = item.movieId;
-          item.imageURL = item.image;
-          return item;
-        });
-        setSavedMovieList(processedSavedMovies);
-        setFilteredSavedMovieList(processedSavedMovies);
-        restoreSearchResults();
         setIsLoggedIn(true);
-        navigate("/movies", { replace: true });
+        handleSavedMovies(savedMovies);
+        restoreSearchResults();
+        redirectAfterInit();
       })
       .catch(error => {
         signOut();
         console.error(error);
         openInfoPopup("Произошла ошибка при загрузке данных пользователя.", true);
       });
+  };
+
+  function handleSavedMovies(savedMovies) {
+    const processedSavedMovies = savedMovies.map((item) => {
+      item.id = item.movieId;
+      item.imageURL = item.image;
+      return item;
+    });
+    setSavedMovieList(processedSavedMovies);
+    setFilteredSavedMovieList(processedSavedMovies);
+  };
+
+  function redirectAfterInit() {
+    const currentPath = location.pathname;
+    if (currentPath === "/signin" || currentPath === "/signup") {
+      navigate("/movies", { replace: true });
+    }
   };
 
   function restoreSearchResults() {
@@ -131,7 +143,7 @@ function App() {
     setIsLoading(true);
     mainApi.signup(name, email, password)
       .then(() => {
-        signIn({email, password});
+        signIn({ email, password });
       })
       .catch(error => {
         console.error(error);
@@ -363,8 +375,7 @@ function App() {
         <Route
           path="/"
           element={
-            <Main
-              isLoggedIn={isLoggedIn} />
+            <Main isLoggedIn={isLoggedIn} />
           }
         />
         <Route
