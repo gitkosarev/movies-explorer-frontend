@@ -46,10 +46,11 @@
   display: none;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
+  width: 60%;
+  height: 60%;
+  margin: 0 auto;
   padding: 20px;
+  z-index: 10;
 }
 
 .preloader_active {
@@ -85,11 +86,11 @@
 
 .preloader__round::after {
   background: white;
-  animation: preloader-inside-white 2s ease-in-out infinite;
+  animation: preloader-inside-white 1s ease-in-out infinite;
 }
 
 .preloader__round::before {
-  z-index: 10;
   background: #3456F3;
-  animation: preloader-inside-red 2s ease-in-out infinite;
+  animation: preloader-inside-red 1s ease-in-out infinite;
+  z-index: 10;
 }

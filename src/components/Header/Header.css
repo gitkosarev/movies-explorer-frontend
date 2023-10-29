@@ -55,8 +55,8 @@
   justify-content: space-between;
   color: #000;
   font-size: 13px;
-  font-weight: 500;
-  line-height: 16px;
+  font-weight: 400;
+  line-height: 18px;
 }
 
 @media screen and (max-width: 767px) {
@@ -89,6 +89,7 @@
 
 /* activate */
 .header__link_active {
+  font-size: 14px;
   font-weight: 500;
 }
 
